@@ -1,2 +1,2 @@
-# Operating-System
-Trying out OS stuff
+# Operating Systems & Networks
+Work for the course OSN
