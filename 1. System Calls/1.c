@@ -10,7 +10,6 @@ RESOURCES:
 https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
 "fseek works with file pointers and lseek with file descriptors."  https://www.tek-tips.com/viewthread.cfm?qid=422167
 
-
 */
 
 int main(int argc, char *argv[])

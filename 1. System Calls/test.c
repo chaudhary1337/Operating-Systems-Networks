@@ -4,26 +4,22 @@
 #include <sys/stat.h>
 #include <stdio.h>
 
-int main()
+int get_int(char *num)
 {
-    char msg[] = "wow very nice";
-    strcat(msg, " hihihi");
-    syscall(SYS_write, STDOUT_FILENO, msg, sizeof(msg));
+    int ans = 0;
 
-    char owner[] = {"User", "Group", "Others"};
-    char ops[] = {"read", "write", "execute"};
-    int flags[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
-    for (int i = 0; i < 3; i++)
+    while (*num)
     {
-        char msg[128] = owner[i];
-        for (int j = 0; j < 3; j++)
-        {
-            strcat(msg, " has ");
-            strcat(msg, ops[j]);
-            strcat(msg, " permission on {}:");
-            strcat(msg, flags[3 * i + j]);
-        }
+        ans = ans * 10 + *num - '0';
+        num++;
     }
 
+    return ans;
+}
+
+int main(int argc, char *argv[])
+{
+    int x = get_int(argv[2]);
+    printf("%d", x);
     return 0;
 }
