@@ -35,11 +35,25 @@ int main(int argc, char *argv[])
     // SETTING UP MORE STUFF
     int chunk_size = 4;
     int num_chunks = file_size / chunk_size + 1;
-    char *source = (char *)malloc(chunk_size);
-    char *target = (char *)malloc(chunk_size);
+
+    // HANDLING THE REMAINDER FROM THE DIVISION
+    int remaining = file_size - (num_chunks - 1) * chunk_size;
+    lseek(input_file, -remaining, SEEK_END);
+
+    char *source = (char *)malloc(remaining);
+    char *target = (char *)malloc(remaining);
+
+    read(input_file, source, remaining);
+    for (int start = 0, end = remaining - 1; start < remaining; start++, end--)
+        target[start] = source[end];
+    write(output_file, target, remaining);
+
+    // HANDLING CORE OF THE FILE
+    source = (char *)malloc(chunk_size);
+    target = (char *)malloc(chunk_size);
     int curr_chunk = num_chunks - 2; // pointing to the second last chunk
 
-    // CHONKY BOIH
+    // CHONKY BOIHS
     while (1)
     {
         lseek(input_file, curr_chunk-- * chunk_size, SEEK_SET);
@@ -52,16 +66,6 @@ int main(int argc, char *argv[])
         if (curr_chunk < 0)
             break;
     }
-
-    // FIXING THIS RN
-    // // whatever remains at last
-    // lseek(input_file, (num_chunks - 1) * chunk_size, SEEK_SET);
-    // int remaining = file_size - (num_chunks - 1) * chunk_size;
-    // int start = 0;
-    // read(input_file, source, remaining);
-    // for (int start = 0, end = remaining - 1; start < remaining; start++, end--)
-    //     target[start] = source[end];
-    // write(output_file, target, remaining);
 
     // COMPLETING STUFF
     close(input_file);
