@@ -6,5 +6,10 @@
 3. Print permissions of the files generated above.
 
 ### 3. Printing Permissions
-Assumptions:
-- "Directory is created: Yes" only prints once, the rest 9 get printed for each in ["Assignemnt", "Assignment/1_file_name", "Assignment/2_file_name"]
+Assumption: "Directory is created: Yes" only prints once, the rest 9 get printed for each in ["Assignemnt", "Assignment/1_file_name", "Assignment/2_file_name"]
+
+### 2. Reverse with conditions
+Nothing assumed
+
+### 1. Reverse
+Nothing assumed
