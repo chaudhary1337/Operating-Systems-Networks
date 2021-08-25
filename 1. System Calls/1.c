@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/syscall.h>
 
 /*
 RESOURCES:
@@ -32,7 +33,7 @@ int main(int argc, char *argv[])
     }
 
     // SETTING UP MORE STUFF
-    int chunk_size = 4;
+    int chunk_size = 512;
     int num_chunks = file_size / chunk_size + 1;
     int progress = 0;
 
@@ -47,10 +48,11 @@ int main(int argc, char *argv[])
     for (int start = 0, end = remaining - 1; start < remaining; start++, end--)
     {
         target[start] = source[end];
-        printf("\r%.2f%%", (float)++progress / file_size * 100.0);
-        fflush(stdout);
+        char msg[8] = "";
+        sprintf(msg, "\r%.2f%%", (float)++progress / file_size * 100);
+        syscall(SYS_write, STDOUT_FILENO, msg, 8);
 
-        sleep(1);
+        // sleep(1);
     }
     write(output_file, target, remaining);
 
@@ -67,10 +69,11 @@ int main(int argc, char *argv[])
         for (int start = 0, end = chunk_size - 1; start < chunk_size; start++, end--)
         {
             target[start] = source[end];
-            printf("\r%.2f%%", (float)++progress / file_size * 100.0);
-            fflush(stdout);
+            char msg[8] = "";
+            sprintf(msg, "\r%.2f%%", (float)++progress / file_size * 100);
+            syscall(SYS_write, STDOUT_FILENO, msg, 8);
 
-            sleep(1);
+            // sleep(1);
         }
         target[chunk_size] = '\0';
         write(output_file, target, chunk_size);
