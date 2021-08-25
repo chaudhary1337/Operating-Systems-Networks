@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
     // SETTING UP MORE STUFF
     int chunk_size = 4;
     int num_chunks = file_size / chunk_size + 1;
+    int progress = 0;
 
     // HANDLING THE REMAINDER FROM THE DIVISION
     int remaining = file_size - (num_chunks - 1) * chunk_size;
@@ -44,7 +45,13 @@ int main(int argc, char *argv[])
 
     read(input_file, source, remaining);
     for (int start = 0, end = remaining - 1; start < remaining; start++, end--)
+    {
         target[start] = source[end];
+        printf("\r%.2f%%", (float)++progress / file_size * 100.0);
+        fflush(stdout);
+
+        sleep(1);
+    }
     write(output_file, target, remaining);
 
     // HANDLING CORE OF THE FILE
@@ -58,7 +65,13 @@ int main(int argc, char *argv[])
         lseek(input_file, curr_chunk-- * chunk_size, SEEK_SET);
         read(input_file, source, chunk_size);
         for (int start = 0, end = chunk_size - 1; start < chunk_size; start++, end--)
+        {
             target[start] = source[end];
+            printf("\r%.2f%%", (float)++progress / file_size * 100.0);
+            fflush(stdout);
+
+            sleep(1);
+        }
         target[chunk_size] = '\0';
         write(output_file, target, chunk_size);
 
