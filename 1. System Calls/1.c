@@ -16,15 +16,16 @@ https://stackoverflow.com/questions/238603/how-can-i-get-a-files-size-in-c
 int main(int argc, char *argv[])
 {
     // I/O SETUP
-    char *input_name = argv[1];
-    char output_name[128] = "Assignment/1_";
+    char *input_path = argv[1];
+    char *input_name = strrchr(input_path, '/') ? strrchr(input_path, '/') + 1 : input_path;
+    char output_name[128] = "./Assignment/1_";
     strcat(output_name, input_name);
 
-    int input_file = open(input_name, O_RDONLY);
+    int input_file = open(input_path, O_RDONLY);
     int output_file = open(output_name, O_CREAT | O_RDWR | O_TRUNC, 0600);
 
     struct stat st;
-    stat(input_name, &st);
+    stat(input_path, &st);
     long int file_size = st.st_size;
 
     if (input_file < 0 || output_file < 0 || file_size < 0)
@@ -64,6 +65,8 @@ int main(int argc, char *argv[])
     // CHONKY BOIHS
     while (1)
     {
+        if (curr_chunk < 0)
+            break;
         lseek(input_file, curr_chunk-- * chunk_size, SEEK_SET);
         read(input_file, source, chunk_size);
         for (int start = 0, end = chunk_size - 1; start < chunk_size; start++, end--)
@@ -77,9 +80,6 @@ int main(int argc, char *argv[])
         }
         target[chunk_size] = '\0';
         write(output_file, target, chunk_size);
-
-        if (curr_chunk < 0)
-            break;
     }
 
     // COMPLETING STUFF
