@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
     // I/O SETUP
     char *input_path = argv[1];
     char *input_name = strrchr(input_path, '/') ? strrchr(input_path, '/') + 1 : input_path;
+    int mkdir_result = mkdir("./Assignment/", 0700);
     char output_name[128] = "./Assignment/1_";
     strcat(output_name, input_name);
 

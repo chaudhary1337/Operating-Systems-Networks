@@ -19,15 +19,21 @@ https://stackoverflow.com/questions/3866217/how-can-i-make-the-system-call-write
 
 int main(int argc, char *argv[])
 {
-    char *input_file_name = argv[1];
+    char *input_path = argv[1];
+    char *input_file_name = strrchr(input_path, '/') ? strrchr(input_path, '/') + 1 : input_path;
 
     // set names
-    char output_file1_name[128] = "Assignment/1_";
+    char output_file1_path[128] = "./Assignment/1_";
+    char output_file1_name[128] = "1_";
+    strcat(output_file1_path, input_file_name);
     strcat(output_file1_name, input_file_name);
 
-    char output_file2_name[128] = "Assignment/2_";
+    char output_file2_path[128] = "./Assignment/2_";
+    char output_file2_name[128] = "2_";
+    strcat(output_file2_path, input_file_name);
     strcat(output_file2_name, input_file_name);
 
+    char *output_file_paths[] = {"Assignment", output_file1_path, output_file2_path};
     char *output_file_names[] = {"Assignment", output_file1_name, output_file2_name};
     // done
 
@@ -38,7 +44,7 @@ int main(int argc, char *argv[])
     {
         // gets the satus of all the files
         struct stat fileStat;
-        if (stat(output_file_names[file], &fileStat) < 0)
+        if (stat(output_file_paths[file], &fileStat) < 0)
             return 1;
 
         // only when file is 0, that is, the directory

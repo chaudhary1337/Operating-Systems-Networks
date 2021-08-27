@@ -28,15 +28,16 @@ int get_int(char *num)
 int main(int argc, char *argv[])
 {
     // I/O SETUP
-    char *input_name = argv[1];
+    char *input_path = argv[1];
+    char *input_name = strrchr(input_path, '/') ? strrchr(input_path, '/') + 1 : input_path;
     char output_name[128] = "Assignment/2_";
     strcat(output_name, input_name);
 
-    int input_file = open(input_name, O_RDONLY);
+    int input_file = open(input_path, O_RDONLY);
     int output_file = open(output_name, O_CREAT | O_RDWR | O_TRUNC, 0600);
 
     struct stat st;
-    stat(input_name, &st);
+    stat(input_path, &st);
     long int file_size = st.st_size;
 
     if (input_file < 0 || output_file < 0 || file_size < 0)
@@ -64,7 +65,7 @@ int main(int argc, char *argv[])
         sprintf(msg, "\r%.2f%%", (float)++progress / chunk_size * 100);
         syscall(SYS_write, STDOUT_FILENO, msg, 8);
 
-        sleep(1);
+        // sleep(1);
     }
     target[chunk_size] = '\0';
     write(output_file, target, chunk_size);
