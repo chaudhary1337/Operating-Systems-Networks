@@ -42,10 +42,8 @@ int main(int argc, char *argv[])
     int flags[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
     for (int file = 0; file < 3; file++)
     {
-        // gets the satus of all the files
         struct stat fileStat;
-        if (stat(output_file_paths[file], &fileStat) < 0)
-            return 1;
+        int result = stat(output_file_paths[file], &fileStat);
 
         // only when file is 0, that is, the directory
         if (!file)
@@ -54,6 +52,16 @@ int main(int argc, char *argv[])
             strcat(dirmsg, (S_ISDIR(fileStat.st_mode)) ? "Yes" : "No");
             strcat(dirmsg, "\n\n");
             syscall(SYS_write, STDOUT_FILENO, dirmsg, 128);
+        }
+
+        // gets the satus of all the files
+        if (result < 0)
+        {
+            char errmsg[128] = "Error accessing the file/dir: ";
+            strcat(errmsg, output_file_paths[file]);
+            strcat(errmsg, "\n\n");
+            syscall(SYS_write, STDOUT_FILENO, errmsg, 128);
+            continue;
         }
 
         for (int i = 0; i < 3; i++)
