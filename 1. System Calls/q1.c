@@ -31,11 +31,11 @@ int main(int argc, char *argv[])
 
     if (input_file < 0 || output_file < 0 || file_size < 0)
     {
-        exit(1);
+        return 0;
     }
 
     // SETTING UP MORE STUFF
-    int chunk_size = 1024*1024;
+    int chunk_size = 1024 * 1024;
     int num_chunks = file_size / chunk_size + 1;
     int progress = 0;
 

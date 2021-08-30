@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     if (input_file < 0 || output_file < 0 || file_size < 0)
     {
-        exit(1);
+        return 0;
     }
 
     // SETTING UP MORE STUFF
