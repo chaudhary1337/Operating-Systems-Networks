@@ -1,9 +1,29 @@
-CC=gcc
-TARGET=ssh
+IDIR=headers
+SDIR=src
+ODIR=$(SDIR)/obj
+# LDIR =lib
+# LIBS=-lm -lncurses
 
-ssh:
-	$(CC) main.c -o $(TARGET)
-	@echo '************************'
+CC=gcc
+CFLAGS=-I$(IDIR)
+
+
+_DEPS = all.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ = main.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
+	$(CC) -c -g -o $@ $< $(CFLAGS)
+
+ssh: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+	@echo '**************************************************'
+# can use below if lib required
+# $(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+
+.PHONY: clean
 
 clean:
-	rm $(TARGET)
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ 
