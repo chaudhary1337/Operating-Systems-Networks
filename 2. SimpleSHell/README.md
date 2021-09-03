@@ -2,6 +2,9 @@
 
 My attempt at making a simple shell from scratch.
 
+## Assumptions
+- Current path length: 255 characters max. Rest is truncated. 
+
 ## Resources:
 ### 1. Makefile
 - https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
