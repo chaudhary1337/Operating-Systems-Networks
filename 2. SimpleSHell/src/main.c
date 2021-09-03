@@ -2,6 +2,8 @@
 
 int main()
 {
-    printf("nice");
+    show_prompt();
+    char user_input[128];
+
     return 0;
 }
