@@ -2,8 +2,24 @@
 
 int main()
 {
-    show_prompt();
-    char user_input[128];
+    char *user_input = NULL;
+    size_t size = 1;
 
+    while (1)
+    {
+        show_prompt();
+        int bytes_input = getline(&user_input, &size, stdin);
+
+        if (bytes_input == -1)
+        {
+            puts("\nAdios!");
+            break;
+        }
+        else
+        {
+            printf("%s", user_input);
+        }
+    }
+    free(user_input);
     return 0;
 }
