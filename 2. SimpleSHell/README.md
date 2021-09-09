@@ -4,6 +4,7 @@ My attempt at making a simple shell from scratch.
 
 ## Assumptions
 - Current path length: 255 characters max. Rest is truncated. 
+- Max number of args is 15.
 
 ## Resources:
 ### 1. Makefile

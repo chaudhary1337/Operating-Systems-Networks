@@ -17,6 +17,8 @@ int main()
         }
         else
         {
+            // last was a '\n' and i don't like that
+            user_input[strlen(user_input) - 1] = '\0';
             handle_input(user_input);
         }
     }
