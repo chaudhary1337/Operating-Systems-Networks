@@ -17,7 +17,7 @@ int main()
         }
         else
         {
-            printf("%s", user_input);
+            handle_input(user_input);
         }
     }
     free(user_input);
