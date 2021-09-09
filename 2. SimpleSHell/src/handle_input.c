@@ -1,6 +1,5 @@
 #include "all.h"
 
-char *MY_COMMANDS[] = {"wow"};
 int MAX_ARGS = 16;
 
 /*
@@ -17,23 +16,32 @@ void get_args(char *user_input, char *args[MAX_ARGS])
     }
 }
 
-// int system_command_exec(char *user_input)
-// {
-//     for (int i = 0; i < sizeof(MY_COMMANDS) / sizeof(MY_COMMANDS[0]); i++)
-//     {
-//         if (strcmp(user_input, MY_COMMANDS[i]) == 0)
-//         {
-//             ;
-//         }
-//     }
-// }
+/*
+handles my own written commands
+*/
+int handle_my_command(char *args[MAX_ARGS])
+{
+    if (strncmp(args[0], "cd", 2) == 0)
+    {
+        puts("yay, cd is here!");
+        puts("yet to be implemented tho");
+        return 1;
+    }
+
+    return 0;
+}
 
 void handle_input(char *user_input)
 {
     char *args[MAX_ARGS];
     get_args(user_input, args);
 
-    // int is_system_command = system_command_exec(user_input);
+    // handle my own implemented commands
+    int is_my_command = handle_my_command(args);
+    if (is_my_command)
+        return;
+
+    // if I don't have it implemented, time to call execvp
 
     int fork_return = fork();
     if (fork_return)
@@ -42,7 +50,6 @@ void handle_input(char *user_input)
     }
     else
     {
-        // printf("%s", user_input);
         int exec_return = execvp(args[0], args);
         // if invalid command, print its invalid and exit
         if (exec_return < 0)
