@@ -1,7 +1,5 @@
 #include "all.h"
 
-int MAX_ARGS = 16;
-
 /*
 first parameter is the user input
 goal: stores the arguments in the second input parameter as a list of strings
@@ -23,8 +21,7 @@ int handle_my_command(char *args[MAX_ARGS])
 {
     if (strncmp(args[0], "cd", 2) == 0)
     {
-        puts("yay, cd is here!");
-        puts("yet to be implemented tho");
+        handle_cd(args);
         return 1;
     }
 

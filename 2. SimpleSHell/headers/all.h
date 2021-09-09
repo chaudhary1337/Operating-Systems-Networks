@@ -7,5 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#define MAX_ARGS 16
 
 #endif
