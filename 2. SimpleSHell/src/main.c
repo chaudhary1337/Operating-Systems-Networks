@@ -1,5 +1,7 @@
 #include "all.h"
 
+char home[256];
+
 int main()
 {
     char *user_input = NULL;
