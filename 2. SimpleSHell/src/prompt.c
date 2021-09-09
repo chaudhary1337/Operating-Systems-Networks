@@ -1,6 +1,6 @@
 #include "all.h"
 
-extern char home[256];
+char home[256];
 
 void get_path(char *ans_path)
 {
