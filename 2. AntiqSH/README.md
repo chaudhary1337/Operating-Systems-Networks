@@ -1,4 +1,6 @@
-# Simple SHell (SSH)
+# AntiqSH
+
+Pronounced - antqiu(e)-sh
 
 My attempt at making a simple shell from scratch.
 

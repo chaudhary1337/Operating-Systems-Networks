@@ -1,20 +1,6 @@
 #include "all.h"
 
 /*
-first parameter is the user input
-goal: stores the arguments in the second input parameter as a list of strings
-*/
-void get_args(char *user_input, char *args[MAX_ARGS])
-{
-    int i = 0;
-    args[i] = strtok(user_input, " ");
-    while (args[i])
-    {
-        args[++i] = strtok(NULL, " ");
-    }
-}
-
-/*
 handles my own written commands
 */
 int handle_my_command(char *args[MAX_ARGS])
@@ -26,6 +12,20 @@ int handle_my_command(char *args[MAX_ARGS])
     }
 
     return 0;
+}
+
+/*
+first parameter is the user input
+goal: stores the arguments in the second input parameter as a list of strings
+*/
+void get_args(char *user_input, char *args[MAX_ARGS])
+{
+    int i = 0;
+    args[i] = strtok(user_input, " ");
+    while (args[i])
+    {
+        args[++i] = strtok(NULL, " ");
+    }
 }
 
 void handle_input(char *user_input)
