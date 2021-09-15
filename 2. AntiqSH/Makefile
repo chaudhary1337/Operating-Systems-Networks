@@ -11,13 +11,13 @@ CFLAGS=-I$(IDIR)
 _DEPS = all.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o prompt.o handle_input.o builtins.o
+_OBJ = main.o prompt.o handle_input.o cd.o repeat.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 	$(CC) -c -g -o $@ $< $(CFLAGS)
 
-ssh: $(OBJ)
+antiqsh: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	@echo '**************************************************'
 # can use below if lib required
