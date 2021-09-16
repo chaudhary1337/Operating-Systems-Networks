@@ -11,7 +11,7 @@ CFLAGS=-I$(IDIR)
 _DEPS = all.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o prompt.o handle_input.o cd.o repeat.o
+_OBJ = main.o prompt.o handle_input.o cd.o repeat.o handle_command.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
