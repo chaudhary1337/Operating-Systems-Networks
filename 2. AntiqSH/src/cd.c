@@ -1,22 +1,30 @@
 #include "all.h"
 
 extern char home[256];
+extern char prev_path[256];
 
 // YET TO IMPLEMENT cd -
 void handle_cd(char *args[MAX_ARGS])
 {
     if (args[1])
     {
-        if (strcmp(args[1], "~") == 0)
+        if (!strcmp(args[1], "~"))
         {
             chdir(home);
             return;
         }
-
-        int chdir_return = chdir(args[1]);
-        if (chdir_return == -1)
+        else if (!strcmp(args[1], "-"))
         {
-            puts("Some cd-ing error happened. Sad.");
+            chdir(prev_path);
+            return;
+        }
+        else
+        {
+            int chdir_return = chdir(args[1]);
+            if (chdir_return == -1)
+            {
+                puts("Some cd-ing error happened. Sad.");
+            }
         }
     }
     else
