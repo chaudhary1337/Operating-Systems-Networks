@@ -42,6 +42,7 @@ void handle_input(char *user_input)
 {
     char *args[MAX_ARGS];
     int bg = is_bg(user_input);
+
     get_args(user_input, args);
     handle_command(bg, args);
     return;

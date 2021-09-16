@@ -2,6 +2,8 @@
 
 int main()
 {
+    start_child_handler();
+
     char *user_input = NULL;
     size_t size = 1;
 
@@ -23,6 +25,6 @@ int main()
                 handle_input(user_input);
         }
     }
-    free(user_input);
+
     return 0;
 }

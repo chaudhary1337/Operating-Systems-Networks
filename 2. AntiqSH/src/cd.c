@@ -3,6 +3,7 @@
 extern char home[256];
 extern char prev_path[256];
 
+// handle tilda path, as in cd ~/src
 void handle_cd(char *args[MAX_ARGS])
 {
     if (args[1])

@@ -20,7 +20,8 @@ My attempt at making a simple shell from scratch.
 - wait(): https://man7.org/linux/man-pages/man2/wait.2.html
 - basic: https://stackoverflow.com/questions/8319484/regarding-background-processes-using-fork-and-child-processes-in-my-dummy-shel
 - waitpid: https://www.dreamincode.net/forums/topic/406981-running-background-process-in-c-using-fork/
-- 
+- signals: https://tildesites.bowdoin.edu/~sbarker/teaching/courses/systems/18spring/lectures/lec24.pdf
+
 
 
 for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf
