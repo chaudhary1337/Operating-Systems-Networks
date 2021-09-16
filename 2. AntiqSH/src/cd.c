@@ -3,7 +3,6 @@
 extern char home[256];
 extern char prev_path[256];
 
-// YET TO IMPLEMENT cd -
 void handle_cd(char *args[MAX_ARGS])
 {
     if (args[1])

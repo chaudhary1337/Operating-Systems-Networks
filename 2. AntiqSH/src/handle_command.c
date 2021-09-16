@@ -1,3 +1,5 @@
+#include "all.h"
+
 /*
 handles my own written commands
 input: ALL args
@@ -13,6 +15,11 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
     else if (!strncmp(args[0], "cd", 2))
     {
         handle_cd(args);
+        return 1;
+    }
+    else if (!strncmp(args[0], "pwd", 3))
+    {
+        handle_pwd();
         return 1;
     }
     else if (!strncmp(args[0], "repeat", 6))
