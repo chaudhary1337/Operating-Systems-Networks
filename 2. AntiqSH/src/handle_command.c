@@ -22,6 +22,11 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_pwd();
         return 1;
     }
+    else if (!strncmp(args[0], "echo", 4))
+    {
+        handle_echo(args);
+        return 1;
+    }
     else if (!strncmp(args[0], "repeat", 6))
     {
         handle_repeat(bg, args);

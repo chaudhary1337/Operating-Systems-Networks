@@ -21,8 +21,10 @@ My attempt at making a simple shell from scratch.
 - wait, waitpid:
     - https://man7.org/linux/man-pages/man2/wait.2.html
     - https://www.dreamincode.net/forums/topic/406981-running-background-process-in-c-using-fork/
+    - https://stackoverflow.com/questions/28457525/how-do-you-kill-zombie-process-using-wait
     - example: http://www.cs.ecu.edu/karl/4630/sum01/example1.html
     - v good on WNOHANG: https://stackoverflow.com/questions/33508997/waitpid-wnohang-wuntraced-how-do-i-use-these/34845669
+    - introduced SIGCHLD: https://stackoverflow.com/questions/35465758/wait-until-all-background-jobs-have-terminated-c
 - signals:
     - https://tildesites.bowdoin.edu/~sbarker/teaching/courses/systems/18spring/lectures/lec24.pdf
     - https://linuxhint.com/signal_handlers_c_programming_language/

@@ -9,5 +9,6 @@
 #include <sys/wait.h>
 #define MAX_ARGS 16
 #define MAX_PATH_LEN 256
+#define MAX_ECHO_LEN 256
 
 #endif
