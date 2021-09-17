@@ -2,7 +2,7 @@
 
 void handle_pwd(char *args[MAX_ARGS])
 {
-    char curr_path[256];
+    char curr_path[MAX_PATH_LEN];
     getcwd(curr_path, sizeof(curr_path));
     printf("%s\n", curr_path);
     return;

@@ -8,5 +8,6 @@
 #include <string.h>
 #include <sys/wait.h>
 #define MAX_ARGS 16
+#define MAX_PATH_LEN 256
 
 #endif

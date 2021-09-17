@@ -1,13 +1,13 @@
 #include "all.h"
 
-char home[256];                // home path
-char prev_path[256];           // prev full path
-char final_path[256];          // full path, but with ~
-char final_path_unmodded[256]; // full path as is
+char home[MAX_PATH_LEN];                // home path
+char prev_path[MAX_PATH_LEN];           // prev full path
+char final_path[MAX_PATH_LEN];          // full path, but with ~
+char final_path_unmodded[MAX_PATH_LEN]; // full path as is
 
 void get_path(char *ans_path, char *final_path_unmodded)
 {
-    char curr_path[256];
+    char curr_path[MAX_PATH_LEN];
     getcwd(curr_path, sizeof(curr_path));
     strcpy(final_path_unmodded, curr_path);
 
@@ -25,7 +25,7 @@ void get_path(char *ans_path, char *final_path_unmodded)
     else if (strlen(home) < strlen(curr_path) && strstr(curr_path, home))
     {
 
-        char modded_path[256];
+        char modded_path[MAX_PATH_LEN];
         modded_path[0] = '~';
         int j = 1;
         for (int i = strlen(home); i < strlen(curr_path); i++, j++)
