@@ -17,11 +17,18 @@ My attempt at making a simple shell from scratch.
 - taking input: good list of functions with good details: https://www.studymite.com/blog/strings-in-c
 - prepping for execution: https://man7.org/linux/man-pages/man2/fork.2.html
 ### BG proc
-- wait(): https://man7.org/linux/man-pages/man2/wait.2.html
-- basic: https://stackoverflow.com/questions/8319484/regarding-background-processes-using-fork-and-child-processes-in-my-dummy-shel
-- waitpid: https://www.dreamincode.net/forums/topic/406981-running-background-process-in-c-using-fork/
-- signals: https://tildesites.bowdoin.edu/~sbarker/teaching/courses/systems/18spring/lectures/lec24.pdf
-
-
+- basic (takes a lot of time to digest, but is the most complete): https://stackoverflow.com/questions/8319484/regarding-background-processes-using-fork-and-child-processes-in-my-dummy-shel
+- wait, waitpid:
+    - https://man7.org/linux/man-pages/man2/wait.2.html
+    - https://www.dreamincode.net/forums/topic/406981-running-background-process-in-c-using-fork/
+    - example: http://www.cs.ecu.edu/karl/4630/sum01/example1.html
+    - v good on WNOHANG: https://stackoverflow.com/questions/33508997/waitpid-wnohang-wuntraced-how-do-i-use-these/34845669
+- signals:
+    - https://tildesites.bowdoin.edu/~sbarker/teaching/courses/systems/18spring/lectures/lec24.pdf
+    - https://linuxhint.com/signal_handlers_c_programming_language/
+- sig handling:
+    - http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/install.html
+    - https://stackoverflow.com/questions/21180857/installing-signal-handler-in-c
+- setpgid: https://man7.org/linux/man-pages/man2/setpgid.2.html
 
 for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf

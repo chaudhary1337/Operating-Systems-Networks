@@ -8,16 +8,30 @@ info_handler *install_signal(int signum, info_handler *handler)
 
     memset(&action, 0, sizeof(struct sigaction));
     action.sa_sigaction = handler;
-    sigemptyset(&action.sa_mask);              /* block sigs of type being handled */
-    action.sa_flags = SA_RESTART | SA_SIGINFO; /* restart syscalls if possible */
+    sigemptyset(&action.sa_mask);
+    action.sa_flags = SA_RESTART | SA_SIGINFO;
 
     if (sigaction(signum, &action, &old_action) < 0)
         perror("antiqsh");
     return (old_action.sa_sigaction);
 }
 
-void handle_child(int sig, siginfo_t *info, void *vp)
+/*
+called whenever SIGCHLD signal is sent
+can yeet processes who were going to become zombies
+*/
+void handle_child(int sig, siginfo_t *info, void *ucontext)
 {
+    int wstatus;
+    pid_t child_pid;
+    while (waitpid(-1, &wstatus, WNOHANG) > 0)
+    {
+        if (WIFEXITED(wstatus))
+            printf("child with pid: %ld exited :D\n", child_pid);
+        else
+            printf("something went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
+    }
+
     return;
 }
 

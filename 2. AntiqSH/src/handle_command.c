@@ -45,25 +45,18 @@ void handle_command(int bg, char *args[MAX_ARGS])
 
     // if I don't have it implemented, time to call execvp
     pid_t pid = fork();
-    if (pid > 0)
+    if (pid > 0) // parent
     {
-        int status;
-        if (bg)
+        int wstatus;
+        if (!bg)
         {
-            ;
+            // wait(NULL); is same as below, but clen
+            waitpid(-1, &wstatus, 0);
         }
         else
         {
-            (void)waitpid(pid, &status, 0);
+            printf("pid: %ld, ppid: %ld, name: %s\n", (long)getpid(), (long)getppid(), args[0]);
         }
-        // if (!bg)
-        // {
-        //     // wait(NULL);
-        // }
-        // else
-        // {
-        //     printf("pid: %ld, ppid: %ld, name: %s", (long)getpid(), (long)getppid(), args[0]);
-        // }
     }
     else if (pid == 0)
     {
