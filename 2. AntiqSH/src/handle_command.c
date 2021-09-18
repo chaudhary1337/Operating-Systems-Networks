@@ -70,17 +70,7 @@ void handle_command(int bg, char *args[MAX_ARGS])
     }
     else if (pid == 0)
     {
-        // int i = 0;
-        // while (args[i])
-        // {
-        //     printf("trying to exec these dudes: %s\n", args[i]);
-        //     i++;
-        // }
-
-        // printf("YO WTF, %s", args[i]);
         int exec_return = execvp(args[0], args);
-        // printf("\nexec said: %d\n", exec_return);
-
         // if invalid command, print its invalid and exit
         if (exec_return < 0)
         {

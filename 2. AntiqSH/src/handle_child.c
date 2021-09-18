@@ -2,6 +2,7 @@
 
 typedef void info_handler(int, siginfo_t *, void *);
 
+// installs signal. ez.
 info_handler *install_signal(int signum, info_handler *handler)
 {
     struct sigaction action, old_action;
@@ -18,7 +19,7 @@ info_handler *install_signal(int signum, info_handler *handler)
 
 /*
 called whenever SIGCHLD signal is sent
-can yeet processes who were going to become zombies
+yeets processes who were going to become zombies
 */
 void handle_child(int sig, siginfo_t *info, void *ucontext)
 {
@@ -35,6 +36,8 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
     return;
 }
 
+// preps to handle children before they become zombies
+// installs the SIGCHLD signal to handle the termination of children
 void start_child_handler()
 {
     install_signal(SIGCHLD, handle_child);

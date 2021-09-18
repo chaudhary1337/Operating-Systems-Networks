@@ -1,5 +1,8 @@
 #include "all.h"
 
+/*
+prints the process information
+*/
 void handle_pinfo(char *args[MAX_ARGS])
 {
     // setup
