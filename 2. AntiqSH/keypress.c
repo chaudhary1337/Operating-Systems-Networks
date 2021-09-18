@@ -5,14 +5,16 @@
 #include <ctype.h>
 #include <string.h>
 
-void die(const char *s) {
+void die(const char *s)
+{
     perror(s);
     exit(1);
 }
 
 struct termios orig_termios;
 
-void disableRawMode() {
+void disableRawMode()
+{
     if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios) == -1)
         die("tcsetattr");
 }
@@ -25,12 +27,15 @@ void disableRawMode() {
  * The TCSAFLUSH argument specifies when to apply the change: in this case, it waits for all pending output to be written to the terminal, and also discards any input that hasn’t been read.
  * The c_lflag field is for “local flags”
  */
-void enableRawMode() {
-    if (tcgetattr(STDIN_FILENO, &orig_termios) == -1) die("tcgetattr");
+void enableRawMode()
+{
+    if (tcgetattr(STDIN_FILENO, &orig_termios) == -1)
+        die("tcgetattr");
     atexit(disableRawMode);
     struct termios raw = orig_termios;
     raw.c_lflag &= ~(ICANON | ECHO);
-    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) die("tcsetattr");
+    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1)
+        die("tcsetattr");
 }
 
 /**
@@ -43,45 +48,66 @@ void enableRawMode() {
  * Backspace move the cursor one control character to the left
  * @return
  */
-int main() {
+int main()
+{
     char *inp = malloc(sizeof(char) * 100);
     char c;
-    while (1) {
+    while (1)
+    {
         setbuf(stdout, NULL);
         enableRawMode();
         printf("Prompt>");
         memset(inp, '\0', 100);
         int pt = 0;
-        while (read(STDIN_FILENO, &c, 1) == 1) {
-            if (iscntrl(c)) {
-                if (c == 10) break;
-                else if (c == 27) {
+        while (read(STDIN_FILENO, &c, 1) == 1)
+        {
+            if (iscntrl(c))
+            {
+                if (c == 10)
+                    break;
+                else if (c == 27)
+                {
                     char buf[3];
                     buf[2] = 0;
-                    if (read(STDIN_FILENO, buf, 2) == 2) { // length of escape code
+                    if (read(STDIN_FILENO, buf, 2) == 2)
+                    { // length of escape code
                         printf("\rarrow key: %s", buf);
                     }
-                } else if (c == 127) { // backspace
-                    if (pt > 0) {
-                        if (inp[pt-1] == 9) {
-                            for (int i = 0; i < 7; i++) {
+                }
+                else if (c == 127)
+                { // backspace
+                    if (pt > 0)
+                    {
+                        if (inp[pt - 1] == 9)
+                        {
+                            for (int i = 0; i < 7; i++)
+                            {
                                 printf("\b");
                             }
                         }
                         inp[--pt] = '\0';
                         printf("\b \b");
                     }
-                } else if (c == 9) { // TAB character
+                }
+                else if (c == 9)
+                { // TAB character
                     inp[pt++] = c;
-                    for (int i = 0; i < 8; i++) { // TABS should be 8 spaces
+                    for (int i = 0; i < 8; i++)
+                    { // TABS should be 8 spaces
                         printf(" ");
                     }
-                } else if (c == 4) {
+                }
+                else if (c == 4)
+                {
                     exit(0);
-                } else {
+                }
+                else
+                {
                     printf("%d\n", c);
                 }
-            } else {
+            }
+            else
+            {
                 inp[pt++] = c;
                 printf("%c", c);
             }

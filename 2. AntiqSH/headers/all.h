@@ -10,5 +10,6 @@
 #define MAX_ARGS 16
 #define MAX_PATH_LEN 256
 #define MAX_ECHO_LEN 256
+#define BUFFER_SIZE 4096
 
 #endif

@@ -33,4 +33,11 @@ My attempt at making a simple shell from scratch.
     - https://stackoverflow.com/questions/21180857/installing-signal-handler-in-c
 - setpgid: https://man7.org/linux/man-pages/man2/setpgid.2.html
 
+
+## pinfo
+- getpid: https://man7.org/linux/man-pages/man2/getpid.2.html
+- proc: https://man7.org/linux/man-pages/man5/proc.5.html
+- exe file path: https://stackoverflow.com/questions/933850/how-do-i-find-the-location-of-the-executable-in-c
+- readlink: https://man7.org/linux/man-pages/man2/readlink.2.html
+
 for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf

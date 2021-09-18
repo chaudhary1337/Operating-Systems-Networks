@@ -27,6 +27,11 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_echo(args);
         return 1;
     }
+    else if (!strncmp(args[0], "pinfo", 5))
+    {
+        handle_pinfo(args);
+        return 1;
+    }
     else if (!strncmp(args[0], "repeat", 6))
     {
         handle_repeat(bg, args);
@@ -60,7 +65,7 @@ void handle_command(int bg, char *args[MAX_ARGS])
         }
         else
         {
-            printf("pid: %ld, ppid: %ld, name: %s\n", (long)getpid(), (long)getppid(), args[0]);
+            printf("pid: %ld, ppid: %ld, name: %s\n", pid, (long)getpid(), args[0]);
         }
     }
     else if (pid == 0)

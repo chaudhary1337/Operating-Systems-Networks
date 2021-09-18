@@ -7,13 +7,14 @@ output: int of the count they are
 */
 int get_count(char *num)
 {
-    int ans = 0;
-    while (*num)
-    {
-        ans = ans * 10 + *num - '0';
-        num++;
-    }
-    return ans;
+    return atoi(num);
+    // int ans = 0;
+    // while (*num)
+    // {
+    //     ans = ans * 10 + *num - '0';
+    //     num++;
+    // }
+    // return ans;
 }
 
 void handle_repeat(int bg, char *args[MAX_ARGS])

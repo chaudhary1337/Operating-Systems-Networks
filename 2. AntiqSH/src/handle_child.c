@@ -24,7 +24,7 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
 {
     int wstatus;
     pid_t child_pid;
-    while (waitpid(-1, &wstatus, WNOHANG) > 0)
+    while ((child_pid = waitpid(-1, &wstatus, WNOHANG)) > 0)
     {
         if (WIFEXITED(wstatus))
             printf("child with pid: %ld exited :D\n", child_pid);

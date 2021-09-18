@@ -13,7 +13,7 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ = main.o prompt.o \
 		handle_input.o handle_command.o handle_child.o \
-		cd.o pwd.o echo.o repeat.o 
+		cd.o pwd.o echo.o repeat.o pinfo.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
