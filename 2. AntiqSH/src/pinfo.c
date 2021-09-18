@@ -50,7 +50,11 @@ void handle_pinfo(char *args[MAX_ARGS])
     if (readlink_return == -1)
         printf("executable error");
     else
-        printf("Executable Path -- %s DO PATH COMPRESSION HERE\n", exe_file_path);
+    {
+        // compresses the path
+        compress_path(exe_file_path, exe_file_path);
+        printf("Executable Path -- %s\n", exe_file_path);
+    }
 
     return;
 }

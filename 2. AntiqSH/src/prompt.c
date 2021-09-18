@@ -5,6 +5,27 @@ char prev_path[MAX_PATH_LEN];           // prev full path
 char final_path[MAX_PATH_LEN];          // full path, but with ~
 char final_path_unmodded[MAX_PATH_LEN]; // full path as is
 
+/*
+yeets home from the path if there is home in the path
+input: path, compressed final path
+*/
+void compress_path(char *path, char *compressed_path)
+{
+    if (strlen(home) <= strlen(path) && strstr(path, home))
+    {
+        char modded_path[MAX_PATH_LEN] = "\0";
+        modded_path[0] = '~';
+        int j = 1;
+        for (int i = strlen(home); i < strlen(path); i++, j++)
+            modded_path[j] = path[i];
+
+        modded_path[j] = '\0';
+        strcpy(compressed_path, modded_path);
+    }
+    else
+        strcpy(compressed_path, path);
+}
+
 void get_path(char *ans_path, char *final_path_unmodded)
 {
     char curr_path[MAX_PATH_LEN];
@@ -18,23 +39,7 @@ void get_path(char *ans_path, char *final_path_unmodded)
         strcpy(prev_path, curr_path);
     }
 
-    if (strcmp(home, curr_path) == 0)
-        strcpy(curr_path, "~\0");
-
-    // if home is present in curr_path, remove it
-    else if (strlen(home) < strlen(curr_path) && strstr(curr_path, home))
-    {
-
-        char modded_path[MAX_PATH_LEN];
-        modded_path[0] = '~';
-        int j = 1;
-        for (int i = strlen(home); i < strlen(curr_path); i++, j++)
-            modded_path[j] = curr_path[i];
-
-        modded_path[j] = '\0';
-        strcpy(curr_path, modded_path);
-    }
-
+    compress_path(curr_path, curr_path);
     strcpy(ans_path, curr_path);
     return;
 }
