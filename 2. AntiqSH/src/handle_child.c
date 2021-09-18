@@ -28,9 +28,9 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
     while ((child_pid = waitpid(-1, &wstatus, WNOHANG)) > 0)
     {
         if (WIFEXITED(wstatus))
-            printf("child with pid: %ld exited :D\n", child_pid);
+            printf("\nchild with pid: %ld exited :D\n", child_pid);
         else
-            printf("something went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
+            printf("\nsomething went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
     }
 
     return;

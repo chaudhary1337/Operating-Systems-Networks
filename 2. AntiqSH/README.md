@@ -16,6 +16,7 @@ My attempt at making a simple shell from scratch.
 - hostname: https://man7.org/linux/man-pages/man2/gethostname.2.html
 ### User input
 - taking input: good list of functions with good details: https://www.studymite.com/blog/strings-in-c
+- tokenize string: https://man7.org/linux/man-pages/man3/strtok_r.3.html
 - prepping for execution: https://man7.org/linux/man-pages/man2/fork.2.html
 ### BG proc
 - basic (takes a lot of time to digest, but is the most complete): https://stackoverflow.com/questions/8319484/regarding-background-processes-using-fork-and-child-processes-in-my-dummy-shel

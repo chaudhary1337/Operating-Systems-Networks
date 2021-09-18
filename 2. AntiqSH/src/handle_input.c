@@ -7,9 +7,9 @@ goal: stores the arguments in the second input parameter as a list of strings
 void get_args(char *user_input, char *args[MAX_ARGS])
 {
     int i = 0;
-    args[i] = strtok(user_input, " ");
+    args[i] = strtok(user_input, " \t");
     while (args[i])
-        args[++i] = strtok(NULL, " ");
+        args[++i] = strtok(NULL, " \t");
 }
 
 /*

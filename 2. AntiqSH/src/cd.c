@@ -19,22 +19,15 @@ void handle_cd(char *args[MAX_ARGS])
         // handle if input is compressed with ~ in it
         else if (!strncmp(args[1], "~", 1))
         {
-            // yeets first char from str if its '~'
-            memmove(args[1], args[1] + 1, strlen(args[1]));
-            // puts the home path instead of it
             char expanded_path[MAX_PATH_LEN];
-            strcpy(expanded_path, home);
-            strcat(expanded_path, args[1]);
+            expand_path(args[1], expanded_path);
             chdir(expanded_path);
-            return;
         }
         else
         {
             int chdir_return = chdir(args[1]);
             if (chdir_return == -1)
-            {
                 puts("check the perms or the name dumass");
-            }
         }
     }
     else

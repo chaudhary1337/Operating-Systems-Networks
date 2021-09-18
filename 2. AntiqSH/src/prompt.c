@@ -26,6 +26,20 @@ void compress_path(char *path, char *compressed_path)
         strcpy(compressed_path, path);
 }
 
+/*
+path is extended if ~ is in it.
+*/
+void expand_path(char *path, char *expanded_path)
+{
+    // yeets first char from str if its '~'
+    memmove(path, path + 1, strlen(path));
+    // puts the home path instead of it
+    *expanded_path = "";
+    strcpy(expanded_path, home); // put home first
+    strcat(expanded_path, path); // then the rest
+    return;
+}
+
 void get_path(char *ans_path, char *final_path_unmodded)
 {
     char curr_path[MAX_PATH_LEN];
