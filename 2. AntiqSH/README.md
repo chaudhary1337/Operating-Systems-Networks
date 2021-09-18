@@ -4,6 +4,8 @@ Pronounced - antqiu(e)-sh
 
 My attempt at making a simple shell from scratch.
 
+Running: `clear && make && ./antiqsh`
+
 ## Assumptions
 - Current path length: 255 characters max. Rest is truncated. 
 - Max number of args is 15.

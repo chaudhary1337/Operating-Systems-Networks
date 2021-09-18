@@ -7,32 +7,37 @@ return 1 if I had a command for this shit, else nah
 */
 int handle_my_command(int bg, char *args[MAX_ARGS])
 {
-    if (!strncmp(args[0], "test", 4))
+    if (!strcmp(args[0], "test"))
     {
         printf("testing ok ...\n");
         return 1;
     }
-    else if (!strncmp(args[0], "cd", 2))
+    else if (!strcmp(args[0], "cd"))
     {
         handle_cd(args);
         return 1;
     }
-    else if (!strncmp(args[0], "pwd", 3))
+    else if (!strcmp(args[0], "pwd"))
     {
         handle_pwd();
         return 1;
     }
-    else if (!strncmp(args[0], "echo", 4))
+    else if (!strcmp(args[0], "echo"))
     {
         handle_echo(args);
         return 1;
     }
-    else if (!strncmp(args[0], "pinfo", 5))
+    // else if (!strncmp(args[0], "ls", 2))
+    // {
+    //     handle_ls(args);
+    //     return 1;
+    // }
+    else if (!strcmp(args[0], "pinfo"))
     {
         handle_pinfo(args);
         return 1;
     }
-    else if (!strncmp(args[0], "repeat", 6))
+    else if (!strcmp(args[0], "repeat"))
     {
         handle_repeat(bg, args);
         return 1;
