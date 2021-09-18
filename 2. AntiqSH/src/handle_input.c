@@ -1,7 +1,7 @@
 #include "all.h"
 
 /*
-first parameter is the user input
+first parameter is the SPLITTED user input
 goal: stores the arguments in the second input parameter as a list of strings
 */
 void get_args(char *user_input, char *args[MAX_ARGS])
@@ -9,17 +9,15 @@ void get_args(char *user_input, char *args[MAX_ARGS])
     int i = 0;
     args[i] = strtok(user_input, " ");
     while (args[i])
-    {
         args[++i] = strtok(NULL, " ");
-    }
 }
 
 /*
-returns 1 if current command is bg
+returns 1 if the supplied user_input is bg else 0
 */
 int is_bg(char *user_input)
 {
-    //if is bg, we remove the & character, end the string there
+    // if is bg, we remove the & character, end the current user_input there
     // and return 1
     for (int i = 0; i < strlen(user_input); i++)
     {
@@ -30,20 +28,36 @@ int is_bg(char *user_input)
         }
     }
 
-    // if no & found, lite
+    // if no '&' found, lite
     return 0;
 }
 
 /*
+input: user_input, raw
+output: nothing
+
 called by the main function to handle the user input
-sends the parsed arguments over to handle_command()
+- splits the string by ; into multiple user_inputs
+- gets info on if they are bg or not
+- gets all the args for a particular user_input
+- sends the parsed arguments over to handle_command()
 */
 void handle_input(char *user_input)
 {
-    char *args[MAX_ARGS];
-    int bg = is_bg(user_input);
+    char *user_inputs[MAX_INPUT_LENGTH];
+    int i = 0;
+    user_inputs[i] = strtok(user_input, ";");
+    while (user_inputs[i])
+        user_inputs[++i] = strtok(NULL, ";");
 
-    get_args(user_input, args);
-    handle_command(bg, args);
+    for (int j = 0; j < i; j++)
+    {
+        char user_input[MAX_INPUT_LENGTH];
+        strcpy(user_input, user_inputs[j]);
+        int bg = is_bg(user_input);
+        char *args[MAX_ARGS];
+        get_args(user_input, args);
+        handle_command(bg, args);
+    }
     return;
 }
