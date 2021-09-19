@@ -17,7 +17,6 @@ extern struct proc
 };
 
 extern struct proc procs[MAX_PROCS];
-extern int proc_counter;
 
 int handle_my_command(int bg, char *args[MAX_ARGS])
 {
@@ -74,36 +73,40 @@ void handle_command(int bg, char *args[MAX_ARGS])
 
     // if I don't have it implemented, time to call execvp
     pid_t pid = fork();
-    if (pid > 0) // parent
+    if (pid < 0) // fork error
     {
-        int wstatus;
-        if (!bg)
+        perror("antqish");
+    }
+    else if (pid > 0) // parent
+    {
+        if (bg)
         {
-            // wait(NULL); is same as below, but clen
-            waitpid(-1, &wstatus, 0);
+            add_proc(pid, args[0]);
+            printf("pid: %ld, ppid: %ld, name: %s\n", pid, (long)getpid(), args[0]);
         }
         else
         {
-            printf("pid: %ld, ppid: %ld, name: %s\n", pid, (long)getpid(), args[0]);
-            // printf("%d is the counter: ", proc_counter++);
-            procs[proc_counter].pid = pid;
-            strcpy(procs[proc_counter].name, args[0]);
-            proc_counter++;
+            signal(SIGTTIN, SIG_IGN);
+            signal(SIGTTOU, SIG_IGN);
+
+            tcsetpgrp(STDIN_FILENO, pid);
+            int wstatus;
+            waitpid(-1, &wstatus, WUNTRACED);
+            tcsetpgrp(STDIN_FILENO, getpgrp());
+
+            signal(SIGTTIN, SIG_DFL);
+            signal(SIGTTOU, SIG_DFL);
         }
     }
-    else if (pid == 0)
+    else if (pid == 0) //child
     {
+        setpgid(0, 0);
         int exec_return = execvp(args[0], args);
-        // if invalid command, print its invalid and exit
-        if (exec_return < 0)
+        if (exec_return < 0) // if invalid command, print its invalid and exit
         {
             printf("Command \"%s\" not found.\n", args[0]);
             exit(0);
         }
-    }
-    else // return < 0 for errors in forking
-    {
-        perror("antqish");
     }
     return;
 }

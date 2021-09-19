@@ -36,8 +36,9 @@ Running: `clear && make && ./antiqsh`
 - sig handling:
     - http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/install.html
     - https://stackoverflow.com/questions/21180857/installing-signal-handler-in-c
-- setpgid: https://man7.org/linux/man-pages/man2/setpgid.2.html
-
+- setpgid
+    - https://man7.org/linux/man-pages/man2/setpgid.2.html
+    - https://stackoverflow.com/questions/6025673/why-is-there-timing-problem-while-to-fork-child-processes
 
 ## pinfo
 - getpid: https://man7.org/linux/man-pages/man2/getpid.2.html

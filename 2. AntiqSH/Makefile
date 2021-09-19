@@ -12,7 +12,7 @@ _DEPS = all.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ = \
-	main.o prompt.o \
+	main.o prompt.o procs.o \
 	handle_input.o handle_command.o handle_child.o \
 	cd.o pwd.o echo.o repeat.o pinfo.o ls.o
 

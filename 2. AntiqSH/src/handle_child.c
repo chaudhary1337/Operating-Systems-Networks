@@ -2,14 +2,13 @@
 
 typedef void info_handler(int, siginfo_t *, void *);
 
-struct proc
+extern struct proc
 {
     pid_t pid;
     char name[MAX_PROC_NAME];
 };
 
-struct proc procs[MAX_PROCS];
-int proc_counter = 0;
+extern struct proc procs[MAX_PROCS];
 
 // installs signal. ez.
 info_handler *install_signal(int signum, info_handler *handler)
@@ -26,21 +25,6 @@ info_handler *install_signal(int signum, info_handler *handler)
     return (old_action.sa_sigaction);
 }
 
-void get_proc_name(pid_t proc_pid, char *proc_name)
-{
-    for (int i = 0; i < MAX_PROCS; i++)
-    {
-        if (procs[i].pid == proc_pid)
-        {
-            strcpy(proc_name, procs[i].name);
-            return;
-        }
-    }
-
-    printf("Can't find the process name :(\n");
-    return;
-}
-
 /*
 called whenever SIGCHLD signal is sent
 yeets processes who were going to become zombies
@@ -53,13 +37,16 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
     {
         char child_name[MAX_PROC_NAME] = "";
         get_proc_name(child_pid, child_name);
+
+        if (!strcmp(child_name, ""))
+            continue;
+
         if (WIFEXITED(wstatus))
             printf("\nchild %s with pid: %ld exited :D\n", child_name, child_pid);
         else
             printf("\nsomething went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
 
-        // also reduce the process counter
-        proc_counter--;
+        remove_proc(child_pid); // remove the process from the list
     }
 
     return;
