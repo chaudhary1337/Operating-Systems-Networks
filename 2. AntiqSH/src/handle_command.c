@@ -1,10 +1,24 @@
 #include "all.h"
 
+// FIX ERROR:
+// On running "vim &", vim should be executed in the background
+// (suspending itself) and PID should be printed in the shell.
+
 /*
 handles my own written commands
 input: ALL args
 return 1 if I had a command for this shit, else nah
 */
+
+extern struct proc
+{
+    pid_t pid;
+    char name[MAX_PROC_NAME];
+};
+
+extern struct proc procs[MAX_PROCS];
+extern int proc_counter;
+
 int handle_my_command(int bg, char *args[MAX_ARGS])
 {
     if (!strcmp(args[0], "test"))
@@ -71,6 +85,10 @@ void handle_command(int bg, char *args[MAX_ARGS])
         else
         {
             printf("pid: %ld, ppid: %ld, name: %s\n", pid, (long)getpid(), args[0]);
+            // printf("%d is the counter: ", proc_counter++);
+            procs[proc_counter].pid = pid;
+            strcpy(procs[proc_counter].name, args[0]);
+            proc_counter++;
         }
     }
     else if (pid == 0)
