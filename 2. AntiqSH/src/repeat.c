@@ -8,37 +8,40 @@ output: int of the count they are
 int get_count(char *num)
 {
     return atoi(num);
-    // int ans = 0;
-    // while (*num)
-    // {
-    //     ans = ans * 10 + *num - '0';
-    //     num++;
-    // }
-    // return ans;
 }
 
 void handle_repeat(int bg, char *args[MAX_ARGS])
 {
-    // printf("in repeat\n");
+    // if no count given
+    if (!args[1])
+    {
+        printf("Gimme the count ;-;\n");
+        return;
+    }
+    // if the wrong count is given
     int count = get_count(args[1]);
-    // printf("count %d\n", count);
-
-    char *new_args[MAX_ARGS];
+    if (!(count > 0 && count <= 15))
+    {
+        printf("The count is too big or you screwed the count bruh.\n");
+        return;
+    }
+    // if no command passed
+    if (!args[2])
+    {
+        printf("Bhai repeat kya karu mein?? :pensive:\n");
+        return;
+    }
+    // actual code now
+    char *new_args[MAX_ARGS] = {};
     int i = 2;
     while (args[i])
     {
         new_args[i - 2] = args[i];
-        // printf("got: %s\n", new_args[i - 2]);
         i++;
     }
 
-    // i = 0;
-    // while (new_args[i])
-    //     printf("again: %s\n", new_args[i++]);
-
     while (count--)
-    {
-        // printf("handling commands ...\n");
         handle_command(bg, new_args);
-    }
+
+    return;
 }

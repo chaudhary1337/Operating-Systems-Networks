@@ -10,6 +10,7 @@ Running: `clear && make && ./antiqsh`
 - Current path length: 255 characters max. Rest is truncated. 
 - Max number of args is 15.
 - Max input length for each ';' separated command: 256
+- repeat count should be <=15
 
 ## Resources:
 ### Makefile
