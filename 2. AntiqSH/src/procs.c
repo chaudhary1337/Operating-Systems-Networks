@@ -64,7 +64,6 @@ void remove_proc(pid_t pid)
 void print_procs()
 {
     printf("********************************************************************************\n");
-    int count = 0;
     for (int i = 0; i < MAX_PROCS; i++)
     {
         if (procs[i].pid)
@@ -73,5 +72,4 @@ void print_procs()
         }
     }
     printf("********************************************************************************\n");
-    return count;
 }
