@@ -11,6 +11,11 @@ Running: `clear && make && ./antiqsh`
 - Max number of args is 15.
 - Max input length for each ';' separated command: 256
 - repeat count should be <=15
+- max directories ls can show is 4
+- max proc name: 255 chars
+- max # of proccesses: 255
+
+All these assumptions can be changed in the "all.h" header file
 
 ## Resources:
 ### Makefile

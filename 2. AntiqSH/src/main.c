@@ -17,7 +17,7 @@ int main()
         int bytes_input = getline(&user_input, &size, stdin);
         if (bytes_input == -1) // if Ctrl+D, Adios!
         {
-            printf("\n%d other processes have to be exited.\n", get_how_many_procs());
+            printf("\n%d other processes have to be FORCEFULLY exited.\n", get_how_many_procs());
             puts("Adios!");
             break;
         }

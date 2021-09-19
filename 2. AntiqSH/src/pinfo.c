@@ -19,6 +19,10 @@ void handle_pinfo(char *args[MAX_ARGS])
         pid = getpid();
     printf("pid -- %ld\n", pid);
 
+    pid_t pgroup = getpgid(pid);
+    pid_t tgroup = tcgetpgrp(STDOUT_FILENO);
+    char fgbg = (pgroup == tgroup) ? '+' : ' ';
+
     // FIND THE REST
     char status_file_name[MAX_PATH_LEN];
     char statm_file_name[MAX_PATH_LEN];
@@ -40,7 +44,7 @@ void handle_pinfo(char *args[MAX_ARGS])
     }
 
     fscanf(status_file, "%d %s %c", &pid, dummy, status);
-    printf("Process Status -- %s\n", status);
+    printf("Process Status -- %c%s\n", fgbg, status);
 
     fscanf(statm_file, "%ld", &memory);
     printf("memory -- %ld\n", memory);

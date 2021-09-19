@@ -1,9 +1,5 @@
 #include "all.h"
 
-// FIX ERROR:
-// On running "vim &", vim should be executed in the background
-// (suspending itself) and PID should be printed in the shell.
-
 /*
 handles my own written commands
 input: ALL args

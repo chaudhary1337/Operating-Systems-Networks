@@ -18,13 +18,13 @@ void get_permission(char *file)
     }
 }
 
-void listed_show(char *dir_address, char *file)
+void listed_show(char *file_address, char *file)
 {
-    char file_address[MAX_PATH_LEN];
-    strcpy(file_address, dir_address);
-    strcat(file_address, "/");
-    strcat(file_address, file);
-    get_permission(file_address);
+    // char file_address[MAX_PATH_LEN];
+    // strcpy(file_address, dir_address);
+    // strcat(file_address, "/");
+    // strcat(file_address, file);
+    // get_permission(file_address);
 
     struct stat data;
     if (stat(file_address, &data) == -1)
@@ -40,20 +40,20 @@ void listed_show(char *dir_address, char *file)
     printf("%ld\t %s\t%s\n", data.st_size, time, file);
 }
 
-void ls_show(char *dir_address, int hidden, int list)
+void ls_list(char *dir_address, int list, int hidden)
 {
     struct dirent *file;
     DIR *dir = opendir(dir_address);
-
-    if (dir)
+    printf("directory/file: %s\n", dir_address);
+    struct stat data;
+    if (stat(dir_address, &data) == -1)
     {
-        printf("directory: %s\n", dir_address);
-        struct stat data;
-        if (stat(dir_address, &data) == -1)
-        {
-            printf("something wrong happened for the dir :thonk:\n");
-            return;
-        }
+        printf("something wrong happened for the dir/file :thonk:\n");
+        return;
+    }
+
+    if (S_ISDIR(data.st_mode) && dir)
+    {
         if (list)
             printf("%d\n", (int)data.st_blksize);
 
@@ -61,23 +61,30 @@ void ls_show(char *dir_address, int hidden, int list)
         {
             if (!hidden && (file->d_name[0] == '.'))
                 continue;
-            else if (list)
-                listed_show(dir_address, file->d_name);
-            else
-            {
-                char file_address[MAX_PATH_LEN];
-                strcpy(file_address, dir_address);
-                strcat(file_address, "/");
-                strcat(file_address, file->d_name);
-                get_permission(file_address);
+
+            char file_address[MAX_PATH_LEN];
+            strcpy(file_address, dir_address);
+            strcat(file_address, "/");
+            strcat(file_address, file->d_name);
+            get_permission(file_address);
+
+            if (!list)
                 printf("%s\n", file->d_name);
-            }
+            else
+                listed_show(file_address, file->d_name);
         }
         closedir(dir);
     }
+    else if (!S_ISDIR(data.st_mode))
+    {
+        if (list)
+            listed_show(dir_address, dir_address);
+        else
+            printf("%s\n", dir_address);
+    }
     else
     {
-        printf("no valid directory. im lost now :/\n");
+        printf("Not valid directory; check perms or name :/\n");
         return;
     }
 }
@@ -124,8 +131,13 @@ void handle_ls(char *args[MAX_ARGS])
         if (!strcmp(file_names[i], ""))
             continue;
 
-        if (!strncmp(file_names[i], "~", 1))
-            expand_path(file_names[i], file_names[i]);
+        if (!strcmp(file_names[i], "~"))
+        {
+            char temp[MAX_PATH_LEN];
+            expand_path(file_names[i], temp);
+            strcpy(file_names[i], temp);
+            // printf("TEMP: %s\n", temp);
+        }
         // printf("'%s'\n", file_names[i]);
         i++;
     }
@@ -133,8 +145,8 @@ void handle_ls(char *args[MAX_ARGS])
     for (int i = 0; i < MAX_FILES; i++)
     {
         if (!strcmp(file_names[i], ""))
-            continue;
-        ls_show(file_names[i], hidden, list);
+            break;
+        ls_list(file_names[i], list, hidden);
         puts("\n");
     }
 

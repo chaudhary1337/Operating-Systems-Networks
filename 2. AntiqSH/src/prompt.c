@@ -34,7 +34,7 @@ void expand_path(char *path, char *expanded_path)
     // yeets first char from str if its '~'
     memmove(path, path + 1, strlen(path));
     // puts the home path instead of it
-    *expanded_path = "";
+    strcpy(expanded_path, "");
     strcpy(expanded_path, home); // put home first
     strcat(expanded_path, path); // then the rest
     return;
