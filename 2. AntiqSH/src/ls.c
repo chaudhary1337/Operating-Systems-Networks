@@ -1,31 +1,25 @@
 #include "all.h"
 
-char modevalue[10];
+char all_modes[10];
 
 void get_permission(char *file)
 {
     struct stat fileStat;
     if (!stat(file, &fileStat))
     {
-        modevalue[0] = S_ISDIR(fileStat.st_mode) ? 'd' : '-';
+        all_modes[0] = S_ISDIR(fileStat.st_mode) ? 'd' : '-';
         int flags[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
         char ops[3] = {'r', 'w', 'x'};
 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                modevalue[1 + 3 * i + j] = (fileStat.st_mode & flags[3 * i + j]) ? ops[j] : '-';
-        modevalue[10] = '\0';
+                all_modes[1 + 3 * i + j] = (fileStat.st_mode & flags[3 * i + j]) ? ops[j] : '-';
+        all_modes[10] = '\0';
     }
 }
 
 void listed_show(char *file_address, char *file)
 {
-    // char file_address[MAX_PATH_LEN];
-    // strcpy(file_address, dir_address);
-    // strcat(file_address, "/");
-    // strcat(file_address, file);
-    // get_permission(file_address);
-
     struct stat data;
     if (stat(file_address, &data) == -1)
     {
@@ -36,7 +30,7 @@ void listed_show(char *file_address, char *file)
     struct passwd *curr_password = getpwuid(data.st_uid);
     char time[MAX_TIME];
     strftime(time, MAX_TIME, "%b  %d %H:%M", localtime(&data.st_mtime));
-    printf("%s\t%ld\t%s\t%s\t", modevalue, data.st_nlink, curr_password->pw_name, curr_group->gr_name);
+    printf("%s\t%ld\t%s\t%s\t", all_modes, data.st_nlink, curr_password->pw_name, curr_group->gr_name);
     printf("%ld\t %s\t%s\n", data.st_size, time, file);
 }
 
@@ -44,7 +38,8 @@ void ls_list(char *dir_address, int list, int hidden)
 {
     struct dirent *file;
     DIR *dir = opendir(dir_address);
-    printf("directory/file: %s\n", dir_address);
+    if (list)
+        printf("directory/file: %s\n", dir_address);
     struct stat data;
     if (stat(dir_address, &data) == -1)
     {
@@ -77,10 +72,12 @@ void ls_list(char *dir_address, int list, int hidden)
     }
     else if (!S_ISDIR(data.st_mode))
     {
+        char *dir_address_name = strrchr(dir_address, '/') ? strrchr(dir_address, '/') + 1 : dir_address;
+
         if (list)
-            listed_show(dir_address, dir_address);
+            listed_show(dir_address, dir_address_name);
         else
-            printf("%s\n", dir_address);
+            printf("%s\n", dir_address_name);
     }
     else
     {
@@ -104,8 +101,14 @@ void handle_ls(char *args[MAX_ARGS])
             {
                 if (args[i][j] == 'a')
                     hidden = 1;
-                if (args[i][j] == 'l')
+                else if (args[i][j] == 'l')
                     list = 1;
+                else
+                {
+                    printf("only -a and -l allowed brrr\n");
+                    return;
+                }
+
                 j++;
             }
 

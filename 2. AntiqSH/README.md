@@ -1,6 +1,8 @@
 # AntiqSH
 
 Pronounced - antqiu(e)-sh
+An anagram of Tanishq ;)
+
 
 My attempt at making a simple shell from scratch.
 
@@ -17,7 +19,7 @@ Running: `clear && make && ./antiqsh`
 
 All these assumptions can be changed in the "all.h" header file
 
-## Resources:
+## Resources
 ### Makefile
 - https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 ### Prompt

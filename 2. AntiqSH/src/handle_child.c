@@ -42,9 +42,9 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
             continue;
 
         if (WIFEXITED(wstatus))
-            printf("\nchild %s with pid: %ld exited :D\n", child_name, child_pid);
+            fprintf(stderr, "\nchild %s with pid: %ld exited normally/abnormally :D\n", child_name, child_pid);
         else
-            printf("\nsomething went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
+            fprintf(stderr, "\nsomething went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
 
         remove_proc(child_pid); // remove the process from the list
     }

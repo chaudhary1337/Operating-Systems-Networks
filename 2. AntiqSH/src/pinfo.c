@@ -44,10 +44,10 @@ void handle_pinfo(char *args[MAX_ARGS])
     }
 
     fscanf(status_file, "%d %s %c", &pid, dummy, status);
-    printf("Process Status -- %c%s\n", fgbg, status);
+    printf("Process Status -- %s%c\n", status, fgbg);
 
     fscanf(statm_file, "%ld", &memory);
-    printf("memory -- %ld\n", memory);
+    printf("memory -- %ld {Virual Memory}\n", memory);
 
     // closing all the files
     fclose(status_file);

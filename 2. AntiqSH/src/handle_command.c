@@ -36,7 +36,7 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_echo(args);
         return 1;
     }
-    else if (!strncmp(args[0], "ls", 2))
+    else if (!strcmp(args[0], "ls"))
     {
         handle_ls(args);
         return 1;
