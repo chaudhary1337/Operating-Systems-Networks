@@ -3,7 +3,7 @@
 /*
 prints the current absolute path
 */
-void handle_pwd(char *args[MAX_ARGS])
+void handle_pwd()
 {
     char curr_path[MAX_PATH_LEN];
     getcwd(curr_path, sizeof(curr_path));

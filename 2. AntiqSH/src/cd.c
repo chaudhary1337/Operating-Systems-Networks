@@ -1,4 +1,5 @@
 #include "all.h"
+#include "misc.h"
 
 extern char home[MAX_PATH_LEN];
 extern char prev_path[MAX_PATH_LEN];

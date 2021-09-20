@@ -1,4 +1,5 @@
 #include "all.h"
+#include "misc.h"
 
 char all_modes[10];
 

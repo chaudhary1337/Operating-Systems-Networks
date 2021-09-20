@@ -1,4 +1,6 @@
 #include "all.h"
+#include "proc.h"
+#include "misc.h"
 
 int main()
 {
@@ -26,8 +28,7 @@ int main()
             // last was a '\n' and i dont like that
             user_input[strlen(user_input) - 1] = '\0';
             // if user_input is something,
-            // then ...
-            // do something dammit
+            // then ... do something dammit
             if (strlen(user_input))
                 handle_input(user_input);
         }

@@ -1,4 +1,6 @@
 #include "all.h"
+#include "proc.h"
+#include "misc.h"
 
 typedef void info_handler(int, siginfo_t *, void *);
 
@@ -6,7 +8,7 @@ extern struct proc
 {
     pid_t pid;
     char name[MAX_PROC_NAME];
-};
+} proc;
 
 extern struct proc procs[MAX_PROCS];
 

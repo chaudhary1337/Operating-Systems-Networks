@@ -1,4 +1,5 @@
 #include "all.h"
+#include "misc.h"
 
 /*
 prints the process information
@@ -14,7 +15,7 @@ void handle_pinfo(char *args[MAX_ARGS])
 
     // FIND PID
     if (args[1]) // if supplied, use func from repeat.c
-        pid = get_count(args[1]);
+        pid = atoi(args[1]);
     else // else, get the current pid
         pid = getpid();
     printf("pid -- %ld\n", pid);

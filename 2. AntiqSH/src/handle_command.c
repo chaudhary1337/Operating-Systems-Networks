@@ -1,4 +1,6 @@
 #include "all.h"
+#include "proc.h"
+#include "misc.h"
 
 /*
 handles my own written commands
@@ -10,50 +12,9 @@ extern struct proc
 {
     pid_t pid;
     char name[MAX_PROC_NAME];
-};
+} proc;
 
 extern struct proc procs[MAX_PROCS];
-
-int handle_my_command(int bg, char *args[MAX_ARGS])
-{
-    if (!strcmp(args[0], "test"))
-    {
-        printf("testing ok ...\n");
-        return 1;
-    }
-    else if (!strcmp(args[0], "cd"))
-    {
-        handle_cd(args);
-        return 1;
-    }
-    else if (!strcmp(args[0], "pwd"))
-    {
-        handle_pwd();
-        return 1;
-    }
-    else if (!strcmp(args[0], "echo"))
-    {
-        handle_echo(args);
-        return 1;
-    }
-    else if (!strcmp(args[0], "ls"))
-    {
-        handle_ls(args);
-        return 1;
-    }
-    else if (!strcmp(args[0], "pinfo"))
-    {
-        handle_pinfo(args);
-        return 1;
-    }
-    else if (!strcmp(args[0], "repeat"))
-    {
-        handle_repeat(bg, args);
-        return 1;
-    }
-
-    return 0;
-}
 
 /*
 takes care of the arguments and tries to execute them 

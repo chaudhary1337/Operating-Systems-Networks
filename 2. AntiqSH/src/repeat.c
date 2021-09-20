@@ -1,15 +1,11 @@
 #include "all.h"
+#include "misc.h"
 
 /*
-yet to handle errors
-input: array of characters
-output: int of the count they are
+handles repeat
+input: if the prc is bg or not & args
+output: none
 */
-int get_count(char *num)
-{
-    return atoi(num);
-}
-
 void handle_repeat(int bg, char *args[MAX_ARGS])
 {
     // if no count given
@@ -19,7 +15,7 @@ void handle_repeat(int bg, char *args[MAX_ARGS])
         return;
     }
     // if the wrong count is given
-    int count = get_count(args[1]);
+    int count = atoi(args[1]);
     if (!(count > 0 && count <= 15))
     {
         printf("The count is too big or you screwed the count bruh.\n");

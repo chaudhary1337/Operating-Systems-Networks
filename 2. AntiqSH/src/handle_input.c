@@ -1,4 +1,5 @@
 #include "all.h"
+#include "misc.h"
 
 /*
 first parameter is the SPLITTED user input
