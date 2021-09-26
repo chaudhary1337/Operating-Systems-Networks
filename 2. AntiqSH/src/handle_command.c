@@ -57,6 +57,9 @@ void handle_command(int bg, char *args[MAX_ARGS])
     }
     else if (pid == 0) //child
     {
+        signal(SIGINT, SIG_DFL);  // restore ctrl+c
+        signal(SIGTSTP, SIG_DFL); // restore ctrl+z
+
         setpgid(0, 0);
         int exec_return = execvp(args[0], args);
         if (exec_return < 0) // if invalid command, print its invalid and exit

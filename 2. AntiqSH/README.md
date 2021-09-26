@@ -39,6 +39,7 @@ All these assumptions can be changed in the "all.h" header file
     - v good on WNOHANG: https://stackoverflow.com/questions/33508997/waitpid-wnohang-wuntraced-how-do-i-use-these/34845669
     - introduced SIGCHLD: https://stackoverflow.com/questions/35465758/wait-until-all-background-jobs-have-terminated-c
 - signals:
+    - https://www.gnu.org/software/libc/manual/html_node/Job-Control-Signals.html
     - https://tildesites.bowdoin.edu/~sbarker/teaching/courses/systems/18spring/lectures/lec24.pdf
     - https://linuxhint.com/signal_handlers_c_programming_language/
 - sig handling:
@@ -53,5 +54,11 @@ All these assumptions can be changed in the "all.h" header file
 - proc: https://man7.org/linux/man-pages/man5/proc.5.html
 - exe file path: https://stackoverflow.com/questions/933850/how-do-i-find-the-location-of-the-executable-in-c
 - readlink: https://man7.org/linux/man-pages/man2/readlink.2.html
+
+## piping
+- pipes: https://tldp.org/LDP/lpg/node11.html
+- dup: https://pubs.opengroup.org/onlinepubs/009695399/functions/dup.html
+
+## bg/fg, sus & continue
 
 for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf

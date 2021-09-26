@@ -14,7 +14,7 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = \
 	main.o path_utils.o prompt.o procs.o \
 	handle_input.o handle_my_command.o handle_command.o handle_child.o \
-	cd.o pwd.o echo.o repeat.o pinfo.o ls.o
+	cd.o pwd.o echo.o repeat.o pinfo.o ls.o fg.o
 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 

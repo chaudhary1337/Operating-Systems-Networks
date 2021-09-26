@@ -43,12 +43,24 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
         if (!strcmp(child_name, ""))
             continue;
 
-        if (WIFEXITED(wstatus))
-            fprintf(stderr, "\nchild %s with pid: %ld exited normally/abnormally :D\n", child_name, child_pid);
+        if (WIFSTOPPED(wstatus))
+        {
+            fprintf(stderr, "\nproc %s with pid: %ld has been sus normally\n", child_name, child_pid);
+        }
+        else if (WIFCONTINUED(wstatus))
+        {
+            fprintf(stderr, "\nproc %s with pid: %ld has been continued normally\n", child_name, child_pid);
+        }
+        else if (WIFEXITED(wstatus))
+        {
+            fprintf(stderr, "\nproc %s with pid: %ld exited normally :D\n", child_name, child_pid);
+            remove_proc(child_pid); // remove the process from the list
+        }
         else
-            fprintf(stderr, "\nsomething went wrong with child with pid: %d. 0xFFFFF.\n", child_pid);
-
-        remove_proc(child_pid); // remove the process from the list
+        {
+            fprintf(stderr, "\nsomething went wrong with proc %s with pid: %ld. 0xFFFFF.\n", child_name, child_pid);
+            remove_proc(child_pid); // remove the process from the list
+        }
     }
 
     return;
