@@ -17,6 +17,21 @@ extern struct proc
 
 extern struct proc procs[MAX_PROCS];
 
+void handle_fg_command(pid_t pid)
+{
+    signal(SIGTTIN, SIG_IGN);
+    signal(SIGTTOU, SIG_IGN);
+
+    tcsetpgrp(STDIN_FILENO, pid);
+    int wstatus;
+    waitpid(-1, &wstatus, WUNTRACED);
+    tcsetpgrp(STDIN_FILENO, getpgrp());
+
+    signal(SIGTTIN, SIG_DFL);
+    signal(SIGTTOU, SIG_DFL);
+    return;
+}
+
 /*
 takes care of the arguments and tries to execute them 
 input: args
@@ -44,16 +59,7 @@ void handle_command(int bg, char *args[MAX_ARGS])
         }
         else
         {
-            signal(SIGTTIN, SIG_IGN);
-            signal(SIGTTOU, SIG_IGN);
-
-            tcsetpgrp(STDIN_FILENO, pid);
-            int wstatus;
-            waitpid(-1, &wstatus, WUNTRACED);
-            tcsetpgrp(STDIN_FILENO, getpgrp());
-
-            signal(SIGTTIN, SIG_DFL);
-            signal(SIGTTOU, SIG_DFL);
+            handle_fg_command(pid);
         }
     }
     else if (pid == 0) //child

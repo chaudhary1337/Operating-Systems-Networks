@@ -6,7 +6,7 @@ struct proc
     int index;
     pid_t pid;
     char name[MAX_PROC_NAME];
-};
+} proc;
 
 struct proc procs[MAX_PROCS];
 

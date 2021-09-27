@@ -11,6 +11,7 @@ void handle_input(char *user_input);
 // commands
 void handle_command(int bg, char *args[MAX_ARGS]);
 int handle_my_command(int bg, char *args[MAX_ARGS]);
+void handle_fg_command(pid_t pid);
 
 // child
 typedef void info_handler(int, siginfo_t *, void *);
