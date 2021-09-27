@@ -58,6 +58,12 @@ All these assumptions can be changed in the "all.h" header file
 - pipes: https://tldp.org/LDP/lpg/node11.html
 - dup: https://pubs.opengroup.org/onlinepubs/009695399/functions/dup.html
 
-## bg/fg, sus & continue
-
+## bg/fg, sus, signal & continue 
+- use previously used commands
+- kill: https://man7.org/linux/man-pages/man2/kill.2.html
+- signals: https://www-uxsup.csx.cam.ac.uk/courses/moved.Building/signals.pdf
+    - 18: sigcont
+    - 19: sigstop
+    - 9: sigkill
+    - 2: sigint
 for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf

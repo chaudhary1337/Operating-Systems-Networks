@@ -47,7 +47,7 @@ void handle_fg(char *args[MAX_ARGS])
     signal(SIGTTIN, SIG_DFL);
     signal(SIGTTOU, SIG_DFL);
 
-    if (!WIFSTOPPED(wstatus))
+    if (!WIFSTOPPED(wstatus)) // if it aint stopped, it gon
     {
         // removing the proc from bg
         procs[index].index = -1;

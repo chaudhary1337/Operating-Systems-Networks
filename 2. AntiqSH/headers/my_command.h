@@ -13,5 +13,6 @@ void handle_pinfo(char *args[MAX_ARGS]);
 void handle_jobs(char *args[MAX_ARGS]);
 void handle_fg(char *args[MAX_ARGS]);
 void handle_bg(char *args[MAX_ARGS]);
+void handle_sig(char *args[MAX_ARGS]);
 
 #endif

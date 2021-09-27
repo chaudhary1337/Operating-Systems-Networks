@@ -58,7 +58,7 @@ void handle_child(int sig, siginfo_t *info, void *ucontext)
         }
         else
         {
-            fprintf(stderr, "\nsomething went wrong with proc %s with pid: %ld. 0xFFFFF.\n", child_name, child_pid);
+            fprintf(stderr, "\nproc %s with pid: %ld exited abnormally.\n", child_name, child_pid);
             remove_proc(child_pid); // remove the process from the list
         }
     }
