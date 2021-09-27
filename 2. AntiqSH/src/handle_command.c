@@ -17,21 +17,6 @@ extern struct proc
 
 extern struct proc procs[MAX_PROCS];
 
-void handle_fg_command(pid_t pid)
-{
-    signal(SIGTTIN, SIG_IGN);
-    signal(SIGTTOU, SIG_IGN);
-
-    tcsetpgrp(STDIN_FILENO, pid);
-    int wstatus;
-    waitpid(-1, &wstatus, WUNTRACED);
-    tcsetpgrp(STDIN_FILENO, getpgrp());
-
-    signal(SIGTTIN, SIG_DFL);
-    signal(SIGTTOU, SIG_DFL);
-    return;
-}
-
 /*
 takes care of the arguments and tries to execute them 
 input: args
@@ -55,11 +40,26 @@ void handle_command(int bg, char *args[MAX_ARGS])
         if (bg)
         {
             add_proc(pid, args[0]); // only saves the command name, not the args
-            printf("pid: %ld, ppid: %ld, name: %s\n", pid, (long)getpid(), args[0]);
+            printf("pid: %ld, name: %s\n", pid, args[0]);
         }
         else
         {
-            handle_fg_command(pid);
+            signal(SIGTTIN, SIG_IGN);
+            signal(SIGTTOU, SIG_IGN);
+
+            tcsetpgrp(STDIN_FILENO, pid);
+            int wstatus;
+            waitpid(-1, &wstatus, WUNTRACED);
+            tcsetpgrp(STDIN_FILENO, getpgrp());
+
+            signal(SIGTTIN, SIG_DFL);
+            signal(SIGTTOU, SIG_DFL);
+
+            if (WIFSTOPPED(wstatus))
+            {
+                printf("pid: %ld, name: %s has been stopped\n", pid, args[0]);
+                add_proc(pid, args[0]);
+            }
         }
     }
     else if (pid == 0) //child

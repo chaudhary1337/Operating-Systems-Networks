@@ -39,16 +39,20 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_repeat(bg, args);
         return 1;
     }
-    else if (!strcmp(args[0], "fg"))
-    {
-        handle_fg(args);
-        return 1;
-    }
     else if (!strcmp(args[0], "jobs"))
     {
         handle_jobs(args);
         return 1;
     }
-
+    else if (!strcmp(args[0], "fg"))
+    {
+        handle_fg(args);
+        return 1;
+    }
+    else if (!strcmp(args[0], "bg"))
+    {
+        handle_bg(args);
+        return 1;
+    }
     return 0;
 }

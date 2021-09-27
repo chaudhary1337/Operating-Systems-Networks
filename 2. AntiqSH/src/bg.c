@@ -11,7 +11,7 @@ extern struct proc
 
 extern struct proc procs[MAX_PROCS];
 
-void handle_fg(char *args[MAX_ARGS])
+void handle_bg(char *args[MAX_ARGS])
 {
     // #args
     if (!args[1])
@@ -34,24 +34,7 @@ void handle_fg(char *args[MAX_ARGS])
         return;
     }
 
-    // handle the continuation
-    signal(SIGTTIN, SIG_IGN);
-    signal(SIGTTOU, SIG_IGN);
+    kill(procs[index].pid, SIGCONT);
 
-    tcsetpgrp(STDIN_FILENO, procs[index].pid);
-    kill(procs[index].pid, SIGCONT); // continue the proc
-    int wstatus;
-    waitpid(-1, &wstatus, WUNTRACED);
-    tcsetpgrp(STDIN_FILENO, getpgrp());
-
-    signal(SIGTTIN, SIG_DFL);
-    signal(SIGTTOU, SIG_DFL);
-
-    if (!WIFSTOPPED(wstatus))
-    {
-        // removing the proc from bg
-        procs[index].index = -1;
-        procs[index].pid = 0;
-        strcpy(procs[index].name, "");
-    }
+    return;
 }

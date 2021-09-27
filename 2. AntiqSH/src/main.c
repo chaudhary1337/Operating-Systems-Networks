@@ -6,12 +6,10 @@ int main()
 {
     // init procs
     init_procs();
-
     // disable ctrl+c
     signal(SIGINT, SIG_IGN);
     // disable ctrl+z
     signal(SIGTSTP, SIG_IGN);
-
     // prep to handle SIGCHLD
     start_child_handler();
 
