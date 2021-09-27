@@ -44,6 +44,11 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_fg(args);
         return 1;
     }
+    else if (!strcmp(args[0], "jobs"))
+    {
+        handle_jobs(args);
+        return 1;
+    }
 
     return 0;
 }

@@ -3,11 +3,23 @@
 
 struct proc
 {
+    int index;
     pid_t pid;
     char name[MAX_PROC_NAME];
 };
 
 struct proc procs[MAX_PROCS];
+
+void init_procs()
+{
+    for (int i = 0; i < MAX_PROCS; i++)
+    {
+        procs[i].index = -1;
+        procs[i].pid = 0;
+        strcpy(procs[i].name, "");
+    }
+    return;
+}
 
 int get_how_many_procs()
 {
@@ -16,6 +28,21 @@ int get_how_many_procs()
         if (procs[i].pid)
             count++;
     return count;
+}
+
+char get_status(pid_t pid)
+{
+    // get status
+    char status[20];
+    char dummy[MAX_PATH_LEN];
+    char status_file_name[MAX_PATH_LEN];
+    sprintf(status_file_name, "/proc/%ld/stat", pid);
+
+    FILE *status_file;
+    status_file = fopen(status_file_name, "r");
+    fscanf(status_file, "%d %s %s", &pid, dummy, status);
+    fclose(status_file);
+    return status[0];
 }
 
 void get_proc_name(pid_t proc_pid, char *proc_name)
@@ -37,6 +64,7 @@ void add_proc(pid_t pid, char proc_name[MAX_PROC_NAME])
     {
         if (!procs[i].pid)
         {
+            procs[i].index = i;
             procs[i].pid = pid;
             strcpy(procs[i].name, proc_name);
             return;

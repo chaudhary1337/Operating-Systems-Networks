@@ -10,6 +10,7 @@ return 1 if I had a command for this shit, else nah
 
 extern struct proc
 {
+    int index;
     pid_t pid;
     char name[MAX_PROC_NAME];
 } proc;
@@ -38,7 +39,7 @@ void handle_command(int bg, char *args[MAX_ARGS])
     {
         if (bg)
         {
-            add_proc(pid, args[0]);
+            add_proc(pid, args[0]); // only saves the command name, not the args
             printf("pid: %ld, ppid: %ld, name: %s\n", pid, (long)getpid(), args[0]);
         }
         else

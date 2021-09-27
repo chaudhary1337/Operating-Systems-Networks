@@ -1,0 +1,5 @@
+- check pids
+- check sort
+
+- implement the fg by looking at https://github.com/amul-agrawal/Shell/blob/master/commands/fg.c
+- check the sleep 10 -> ctrl+z thingy

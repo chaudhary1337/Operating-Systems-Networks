@@ -4,6 +4,9 @@
 
 int main()
 {
+    // init procs
+    init_procs();
+
     // disable ctrl+c
     signal(SIGINT, SIG_IGN);
     // disable ctrl+z
