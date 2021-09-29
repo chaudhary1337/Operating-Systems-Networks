@@ -14,6 +14,21 @@ void get_args(char *user_input, char *args[MAX_ARGS])
 }
 
 /*
+returns 1 if the supplied user_input has i/o stuff, else 0
+*/
+int is_io(char *user_input)
+{
+    // if is bg, we remove the & character, end the current user_input there
+    // and return 1
+    for (int i = 0; i < strlen(user_input); i++)
+        if (user_input[i] == '<' || user_input[i] == '>' || user_input[i] == '|')
+            return 1;
+
+    // if no i/o character found, lite
+    return 0;
+}
+
+/*
 returns 1 if the supplied user_input is bg else 0
 */
 int is_bg(char *user_input)
@@ -53,12 +68,21 @@ void handle_input(char *user_input)
 
     for (int j = 0; j < i; j++)
     {
+        // for each input, separated by ;
         char user_input[MAX_INPUT_LENGTH];
         strcpy(user_input, user_inputs[j]);
-        int bg = is_bg(user_input);
-        char *args[MAX_ARGS];
-        get_args(user_input, args);
-        handle_command(bg, args);
+
+        if (is_io(user_input)) // i/o command goes through a diff route
+        {
+            handle_io(user_input);
+        }
+        else // non-io commands handle as before
+        {
+            int bg = is_bg(user_input);
+            char *args[MAX_ARGS];
+            get_args(user_input, args);
+            handle_command(bg, args);
+        }
     }
     return;
 }

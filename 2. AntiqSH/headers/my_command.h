@@ -14,5 +14,6 @@ void handle_jobs(char *args[MAX_ARGS]);
 void handle_fg(char *args[MAX_ARGS]);
 void handle_bg(char *args[MAX_ARGS]);
 void handle_sig(char *args[MAX_ARGS]);
+void handle_pipe(char *segments[MAX_INPUT_LENGTH], int i);
 
 #endif

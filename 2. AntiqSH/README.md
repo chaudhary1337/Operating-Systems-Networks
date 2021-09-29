@@ -68,8 +68,8 @@ All these assumptions can be changed in the "all.h" header file
     - 2: sigint
 
 ## pipe
+- pseudo code for the logic flow: https://stackoverflow.com/questions/916900/having-trouble-with-fork-pipe-dup2-and-exec-in-c/
 - v. good example: https://man7.org/linux/man-pages/man2/pipe.2.html
 - good pic: https://linuxhint.com/using_pipe_function_c_language/
 - https://man7.org/linux/man-pages/man2/dup.2.html
-
 for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf
