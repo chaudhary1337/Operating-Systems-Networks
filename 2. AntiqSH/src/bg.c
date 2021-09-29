@@ -30,7 +30,7 @@ void handle_bg(char *args[MAX_ARGS])
 
     if (!procs[index].pid)
     {
-        printf("that proc doesn't exist dumbass\n");
+        printf("that proc doesn't exist or youre too late\n");
         return;
     }
 
