@@ -15,6 +15,7 @@ void handle_io(char *user_input)
     while (segments[i])
         segments[++i] = strtok(NULL, "|");
 
+    // also handles the redirections, as in inside the pipes
     handle_pipe(segments, i);
 
     return;

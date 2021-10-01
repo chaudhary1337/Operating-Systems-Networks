@@ -6,8 +6,8 @@ void handle_pipe(char *segments[MAX_INPUT_LENGTH], int i)
 {
     int new_pfd[2];
     int old_pfd[2] = {STDIN_FILENO, STDOUT_FILENO};
+    int save_in = dup(STDIN_FILENO);
     int save_out = dup(STDOUT_FILENO);
-    int save_in = dup(STDOUT_FILENO);
 
     // handle each segment as if it were a command
     for (int j = 0; j < i; j++)
@@ -37,14 +37,9 @@ void handle_pipe(char *segments[MAX_INPUT_LENGTH], int i)
                 dup2(new_pfd[1], STDOUT_FILENO);
             close(new_pfd[0]);
 
-            char *args[MAX_ARGS];
-            get_args(segments[j], args);
-            int exec_return = execvp(args[0], args);
-            if (exec_return < 0) // if invalid command, print its invalid and exit
-            {
-                printf("Command \"%s\" not found.\n", args[0]);
-                exit(0);
-            }
+            // handle case when there is some redirection
+            // or not, either way we exec at the core
+            handle_redirect(segments[j]);
         }
     }
 

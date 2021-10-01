@@ -6,6 +6,7 @@
 // input
 void get_args(char *user_input, char *args[MAX_ARGS]);
 int is_bg(char *user_input);
+int is_io(char *user_input);
 void handle_input(char *user_input);
 
 // commands

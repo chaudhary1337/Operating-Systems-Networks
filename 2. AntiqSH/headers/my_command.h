@@ -15,5 +15,7 @@ void handle_fg(char *args[MAX_ARGS]);
 void handle_bg(char *args[MAX_ARGS]);
 void handle_sig(char *args[MAX_ARGS]);
 void handle_pipe(char *segments[MAX_INPUT_LENGTH], int i);
+void handle_redirect(char *segment);
+void handle_input_redirect(char *args[MAX_ARGS]);
 
 #endif
