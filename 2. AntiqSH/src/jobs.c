@@ -22,6 +22,46 @@ int cmp(const void *p1, const void *p2)
 
 void handle_jobs(char *args[MAX_ARGS])
 {
+    int running = 0;
+    int stopped = 0;
+    int i = 0;
+    while (args[i])
+    {
+        if (args[i][0] == '-') // flag
+        {
+            int j = 1;
+            while (args[i][j])
+            {
+                if (args[i][j] == 'r')
+                    running = 1;
+                else if (args[i][j] == 's')
+                    stopped = 1;
+                else
+                {
+                    printf("only -r and -s allowed brrr\n");
+                    return;
+                }
+
+                j++;
+            }
+
+            if (j == 1)
+            {
+                printf("supply the args after flag. duh.\n");
+                return;
+            }
+        }
+        i++;
+    }
+
+    // if no args supplied, set both to 1
+    if (!running && !stopped)
+        running = stopped = 1;
+
+    // sort with the help of the cmp comparator function
+    qsort(procs, get_how_many_procs(), sizeof(struct proc), cmp);
+
+    // iterate over the procs and do stuff
     for (int i = 0; i < MAX_PROCS; i++)
     {
         if (procs[i].pid)
@@ -34,7 +74,8 @@ void handle_jobs(char *args[MAX_ARGS])
             else
                 strcpy(status, "Running");
 
-            printf("[%d] %s %s [%ld]\n", procs[i].index, status, procs[i].name, procs[i].pid);
+            if ((status[0] == 'S' && stopped) || (status[0] == 'R' && running))
+                printf("[%d] %s %s [%ld]\n", i, status, procs[i].name, procs[i].pid);
         }
     }
 }

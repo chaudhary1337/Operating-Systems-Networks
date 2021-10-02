@@ -39,9 +39,9 @@ int handle_input_redirect(char *args[MAX_ARGS])
             }
 
             // if found one redirect, yeeettt
-            int x = 0;
-            while (args[x])
-                printf("args in redir: %s\n", args[x++]);
+            // int x = 0;
+            // while (args[x])
+            //     printf("args in redir: %s\n", args[x++]);
             break;
         }
         i++;

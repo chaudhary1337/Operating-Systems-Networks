@@ -57,7 +57,7 @@ void handle_command(int bg, char *args[MAX_ARGS])
 
             if (WIFSTOPPED(wstatus))
             {
-                printf("pid: %ld, name: %s has been stopped\n", pid, args[0]);
+                // printf("pid: %ld, name: %s has been stopped\n", pid, args[0]);
                 add_proc(pid, args[0]);
             }
         }
