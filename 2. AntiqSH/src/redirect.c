@@ -4,20 +4,11 @@
 
 void handle_input_redirect(char *args[MAX_ARGS])
 {
-    // dup2(STDIN_FD, STDIN_FILENO);
-    // dup2(STDOUT_FD, STDOUT_FILENO);
-    // close(STDIN_FD);
-    // close(STDOUT_FD);
-
-    // puts("hi");
     int i = 0;
     while (args[i])
     {
-        // printf("=== args man %s ===\n", args[i]);
         if (!strcmp(args[i], "<"))
         {
-            // printf("=== wtf man %s ===\n", args[i]);
-
             if (i == 0)
             {
                 printf("who do i feed this input to, huh?\n");
@@ -52,11 +43,59 @@ void handle_input_redirect(char *args[MAX_ARGS])
     return;
 }
 
+void handle_output_redirect(char *args[MAX_ARGS])
+{
+    int i = 0;
+    while (args[i])
+    {
+        if (!strcmp(args[i], ">") || !strcmp(args[i], ">>"))
+        {
+
+            if (i == 0)
+            {
+                printf("where do I get this output from, huh?\n");
+                return;
+            }
+            if (!args[i + 1])
+            {
+                printf("where output??\n");
+                return;
+            }
+
+            // open the file
+            int fd_out;
+            if (!strcmp(args[i], ">"))
+                fd_out = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            else
+                fd_out = open(args[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+
+            if (fd_out < 0)
+            {
+                printf("some error in opening file :hmmm:\n");
+                return;
+            }
+
+            dup2(fd_out, STDOUT_FILENO); // send the data to file
+            close(fd_out);
+
+            // shift the args by 2
+            while (args[i])
+                args[i] = args[i + 2];
+
+            // if found one redirect, yeeettt
+            break;
+        }
+        i++;
+    }
+    return;
+}
+
 void handle_redirect(char *segment)
 {
     char *args[MAX_ARGS];
     get_args(segment, args);
     handle_input_redirect(args);
+    handle_output_redirect(args);
 
     // int x = 0;
     // while (args[x])
