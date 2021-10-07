@@ -116,6 +116,13 @@ void handle_redirect(char *segment)
         return;
     }
 
+    int is_my_command = handle_my_command(0, args);
+    if (is_my_command)
+    {
+        exit(0);
+        return;
+    }
+
     int exec_return = execvp(args[0], args);
     if (exec_return < 0) // if invalid command, print its invalid and exit
     {

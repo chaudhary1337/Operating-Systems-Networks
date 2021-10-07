@@ -18,10 +18,11 @@ void handle_pipe(char *segments[MAX_INPUT_LENGTH], int i)
             printf("pipe error. call mario!\n");
             return;
         }
+
         pid_t pid = fork();
         if (pid < 0)
         {
-            printf("fork error in pipe. sOmBaDy ToUch mY SphAgEti");
+            printf("fork error in pipe. sOmBaDy ToUch mY SphAgEt");
             return;
         }
         else if (pid > 0) // parent

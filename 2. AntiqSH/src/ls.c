@@ -39,8 +39,9 @@ void ls_list(char *dir_address, int list, int hidden)
 {
     struct dirent *file;
     DIR *dir = opendir(dir_address);
-    if (list)
-        printf("directory/file: %s\n", dir_address);
+    // the ta Mehu Goel cut marks for this lmao
+    // if (list)
+    //     printf("directory/file: %s\n", dir_address);
     struct stat data;
     if (stat(dir_address, &data) == -1)
     {
