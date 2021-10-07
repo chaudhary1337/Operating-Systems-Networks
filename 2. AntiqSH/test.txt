@@ -5,3 +5,4 @@ above is a space
 i can test better now
 yeet
 adios
+replay -command echo hi -period 3 -interval 1

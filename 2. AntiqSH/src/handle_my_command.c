@@ -59,5 +59,10 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_sig(args);
         return 1;
     }
+    else if (!strcmp(args[0], "replay"))
+    {
+        handle_replay(args);
+        return 1;
+    }
     return 0;
 }

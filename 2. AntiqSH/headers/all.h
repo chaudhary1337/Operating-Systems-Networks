@@ -27,5 +27,10 @@
 #define MAX_PROC_NAME 256
 #define MAX_PROCS 256
 #define MAX_TIME 64
+#define INTERVAL_MAX 10
+#define PERIOD_MAX 10
+#define INTERVAL_MIN 1
+#define PERIOD_MIN 1
+#define MAX_REPLAY_CMD 4
 
 #endif

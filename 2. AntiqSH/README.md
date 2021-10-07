@@ -17,6 +17,9 @@ Running: `clear && make && ./antiqsh`
 - max directories ls can show is 4
 - max proc name: 255 chars
 - max # of proccesses: 255
+- for replay command
+    - interval range is 1 to 10 and period range is 1 to 10
+    - max command len inside replay is max input length (given in pt3 above)
 All these assumptions can be changed in the "all.h" header file
 
 ## Resources
