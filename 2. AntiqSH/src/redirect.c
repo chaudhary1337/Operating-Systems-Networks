@@ -84,12 +84,12 @@ int handle_output_redirect(char *args[MAX_ARGS])
             dup2(fd_out, STDOUT_FILENO); // send the data to file
             close(fd_out);
 
-            // // shift the args by 2
-            // while (args[i])
-            // {
-            //     args[i] = args[i + 2];
-            //     i++;
-            // }
+            // shift the args by 2
+            while (args[i])
+            {
+                args[i] = args[i + 2];
+                i++;
+            }
 
             // if found one redirect, yeeettt
             break;
