@@ -20,6 +20,7 @@ Running: `clear && make && ./antiqsh`
 - for replay command
     - interval range is 1 to 10 and period range is 1 to 10
     - max command len inside replay is max input length (given in pt3 above)
+- baywatch follows same interval range for replay, 1 to 10
 All these assumptions can be changed in the "all.h" header file
 
 ## Resources
@@ -76,4 +77,6 @@ All these assumptions can be changed in the "all.h" header file
 - good pic: https://linuxhint.com/using_pipe_function_c_language/
 - https://man7.org/linux/man-pages/man2/dup.2.html
 
-for reference later, looks good: https://cs.brown.edu/courses/cs033/docs/proj/shell2.pdf
+## Baywatch (new born)
+- https://man7.org/linux/man-pages/man5/proc.5.html, `/proc/loadavg`
+- for the "take input until q thingy": https://man7.org/linux/man-pages/man2/select.2.html

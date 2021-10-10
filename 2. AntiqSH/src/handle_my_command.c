@@ -64,5 +64,10 @@ int handle_my_command(int bg, char *args[MAX_ARGS])
         handle_replay(args);
         return 1;
     }
+    else if (!strcmp(args[0], "baywatch"))
+    {
+        handle_baywatch(args);
+        return 1;
+    }
     return 0;
 }

@@ -15,7 +15,7 @@ _OBJ = \
 	main.o path_utils.o prompt.o procs.o \
 	handle_input.o handle_io.o handle_my_command.o handle_command.o handle_child.o \
 	pipe.o redirect.o \
-	cd.o pwd.o echo.o repeat.o replay.o pinfo.o ls.o jobs.o fg.o bg.o sig.o
+	cd.o pwd.o echo.o repeat.o replay.o pinfo.o ls.o jobs.o fg.o bg.o sig.o baywatch.o
 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
