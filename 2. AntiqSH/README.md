@@ -9,6 +9,46 @@ My attempt at making a simple shell from scratch.
 
 Running: `clear && make && ./antiqsh`
 
+## Directory Structure
+```
+.
+├── antiqsh
+├── headers
+│   ├── all.h
+│   ├── misc.h
+│   ├── my_command.h
+│   └── proc.h
+├── keypress.c
+├── Makefile
+├── README.md
+├── src
+│   ├── baywatch.c
+│   ├── bg.c
+│   ├── cd.c
+│   ├── echo.c
+│   ├── fg.c
+│   ├── handle_child.c
+│   ├── handle_command.c
+│   ├── handle_input.c
+│   ├── handle_io.c
+│   ├── handle_my_command.c
+│   ├── jobs.c
+│   ├── ls.c
+│   ├── main.c
+│   ├── obj
+│   ├── path_utils.c
+│   ├── pinfo.c
+│   ├── pipe.c
+│   ├── procs.c
+│   ├── prompt.c
+│   ├── pwd.c
+│   ├── redirect.c
+│   ├── repeat.c
+│   ├── replay.c
+│   └── sig.c
+└── test.txt
+```
+
 ## Assumptions
 - Current path length: 255 characters max. Rest is truncated. 
 - Max number of args is 15.
