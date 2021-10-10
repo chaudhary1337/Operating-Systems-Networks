@@ -12,5 +12,6 @@ void init_procs();
 
 // utils
 char get_status(pid_t pid);
+int get_proc_id(int index);
 
 #endif

@@ -58,6 +58,17 @@ void get_proc_name(pid_t proc_pid, char *proc_name)
     return;
 }
 
+/*
+if the index is given, try to find the process having this index
+*/
+int get_proc_id(int index)
+{
+    for (int i = 0; i < MAX_PROCS; i++)
+        if (procs[i].index == index)
+            return i;
+    return -1;
+}
+
 void add_proc(pid_t pid, char proc_name[MAX_PROC_NAME])
 {
     for (int i = 0; i < MAX_PROCS; i++)
