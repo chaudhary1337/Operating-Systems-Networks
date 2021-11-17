@@ -1,0 +1,42 @@
+echo hello > output.txt; cat output.txt;
+cat < example.txt ;
+echo hello > new.txt; echo second line >> new.txt; cat new.txt ;
+sort file1.txt > lines_sorted.txt; cat < lines_sorted.txt;
+diff file1.txt file2.txt > output.txt; cat < output.txt
+
+
+more example.txt | wc;
+grep "int" example.txt | cat file1.txt | wc;
+ls | grep .txt; seq 1 10 | wc -l ;
+ls -l | sort -nr | head -n 5;
+echo “Hello world” | wc -c
+
+
+ls | grep .txt > out.txt ; cat out.txt;
+cat < example.txt | wc -l > out2.txt ; cat out2.txt ;
+echo "The number of lines is:" ; wc -l < out2.txt ;
+cat < out.txt | cat example.txt
+
+
+gedit & ; vi & ; firefox &;
+Jobs
+jobs -r
+sleep 100 &
+sig <job id of sleep> 17
+jobs -s 
+bg <job id of sleep> 
+Jobs 
+fg <vi job id> (quit it when it opens up)
+fg <gedit job id> (quit it when it opens up)
+jobs -r
+sig <job id of firefox> 9 (SIGKILL) 
+
+
+replay -command echo "hi" -interval 3 -period 6
+replay -command ls -interval 4 -period 12 &
+replay -command cat example.txt -interval 5 period 12
+
+
+baywatch -n 1 interrupt
+baywatch -n 1 newborn
+baywatch -n 1 dirty
