@@ -21,6 +21,7 @@ char dict[MAX_DICT_SIZE][MAX_STRING_SIZE];
 queue<int *> q;
 vector<pthread_t> thread_pool;
 pthread_mutex_t my_mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t my_condition = PTHREAD_COND_INITIALIZER;
 
 void check(int code, const char *message)
 {
@@ -65,6 +66,12 @@ void *handle_thread(void *arg)
 
         // PROTECC THE QUEUE OPERATIONS
         pthread_mutex_lock(&my_mutex);
+        if (q.empty())
+        {
+            pthread_cond_wait(&my_condition, &my_mutex);
+        }
+        // NOT SURE IF I SHOULD JUST `else` OR PUT ANOTHER IF
+        // WILL GO WITH ANOTHER IF, SINCE SAFER XD
         if (!q.empty())
         {
             client_socket = q.front(); //get the first element
@@ -140,6 +147,7 @@ int main(int argc, char *argv[])
 
         pthread_mutex_lock(&my_mutex);
         q.push(client_on_heap);
+        pthread_cond_signal(&my_condition);
         pthread_mutex_unlock(&my_mutex);
     }
 
