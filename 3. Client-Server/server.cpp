@@ -61,20 +61,23 @@ void *handle_thread(void *arg)
 {
     while (true)
     {
-        // CHECK THIS LATER ... HAVE TO LOCK THE ENTIRE OPERATION
+        int *client_socket = NULL;
+
+        // PROTECC THE QUEUE OPERATIONS
         pthread_mutex_lock(&my_mutex);
         if (!q.empty())
         {
-            int *client_socket = q.front(); //get the first element
+            client_socket = q.front(); //get the first element
             // cout << "pre yeet\n";
             q.pop(); // YEET
             // cout << q.size() << "\tpost yeet\n";
-
-            // cout << "off to connection\n";
-            handle_connection(client_socket);
-            // cout << "connection done\n";
         }
         pthread_mutex_unlock(&my_mutex);
+
+        // cout << "off to connection\n";
+        if (client_socket)
+            handle_connection(client_socket);
+        // cout << "connection done\n";
     }
     return NULL;
 }
@@ -114,12 +117,12 @@ int main(int argc, char *argv[])
     // listen!
     check(listen(sockfd, BACKLOG), "cant listen :/");
     ///////////////////////////////////////////////////////////////////////////
-    cout << "yo1" << '\n';
+    // cout << "yo1" << '\n';
 
     while (true)
     {
         // accept connection request from client
-        cout << "yo2" << '\n';
+        // cout << "yo2" << '\n';
 
         check(client_socket = accept(sockfd, (struct sockaddr *)&client_addr, &client_len), "can't accept :pensive:");
 
@@ -131,7 +134,7 @@ int main(int argc, char *argv[])
         // pthread_create(&t, NULL, handle_connection, &client_socket);
 
         // NON-DUMB METHOD
-        cout << "yo3" << '\n';
+        // cout << "yo3" << '\n';
         int *client_on_heap = (int *)malloc(sizeof(int));
         *client_on_heap = client_socket;
 
