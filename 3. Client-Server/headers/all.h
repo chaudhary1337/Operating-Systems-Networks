@@ -22,6 +22,6 @@
 using namespace std;
 
 extern vector<string> dict;
-extern mutex my_dict_mutex[MAX_DICT_SIZE];
+extern pthread_mutex_t my_dict_mutex[MAX_DICT_SIZE];
 
 #endif

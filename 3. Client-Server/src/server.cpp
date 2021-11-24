@@ -5,7 +5,7 @@ using namespace std;
 
 // char dict[MAX_DICT_SIZE][MAX_STRING_SIZE];
 vector<string> dict(MAX_DICT_SIZE, "");
-mutex my_dict_mutex[MAX_DICT_SIZE];
+pthread_mutex_t my_dict_mutex[MAX_DICT_SIZE];
 
 queue<pair<int, int *>> q;
 vector<pthread_t> thread_pool;
