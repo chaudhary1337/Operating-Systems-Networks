@@ -21,7 +21,7 @@ string handle_insert(char *args[MAX_ARGS])
     // while (!my_dict_mutex[key].try_lock())
     //     ;
     if (dict[key].length())
-        return "Key already exist\n";
+        return "Key already exists\n";
     dict[key] = value;
     // my_dict_mutex[key].unlock();
 

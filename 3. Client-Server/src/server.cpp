@@ -7,7 +7,7 @@ using namespace std;
 vector<string> dict(MAX_DICT_SIZE, "");
 mutex my_dict_mutex[MAX_DICT_SIZE];
 
-queue<int *> q;
+queue<pair<int, int *>> q;
 vector<pthread_t> thread_pool;
 pthread_mutex_t my_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t my_condition = PTHREAD_COND_INITIALIZER;
@@ -22,7 +22,7 @@ void check(int code, const char *message)
     return;
 }
 
-void *handle_connection(void *ptr_client_socket)
+void *handle_connection(void *ptr_client_socket, int request_index)
 {
     int client_socket = *((int *)ptr_client_socket);
 
@@ -46,7 +46,7 @@ void *handle_connection(void *ptr_client_socket)
     check(write(client_socket, c_response, strlen(c_response)), "y u dont listen client :/");
 
     pid_t tid = gettid();
-    cout << tid << ":" << c_response << '\n';
+    cout << request_index << ":" << tid << ":" << c_response;
 
     // close connection
     close(client_socket);
@@ -59,6 +59,7 @@ void *handle_thread(void *arg)
     while (true)
     {
         int *client_socket = NULL;
+        int request_index = -1;
 
         // PROTECC THE QUEUE OPERATIONS
         pthread_mutex_lock(&my_mutex);
@@ -70,7 +71,11 @@ void *handle_thread(void *arg)
         // WILL GO WITH ANOTHER IF, SINCE SAFER XD
         if (!q.empty())
         {
-            client_socket = q.front(); //get the first element
+            pair<int, int *> data;
+            data = q.front(); //get the first element
+            request_index = data.first;
+            client_socket = data.second;
+
             // cout << "pre yeet\n";
             q.pop(); // YEET
             // cout << q.size() << "\tpost yeet\n";
@@ -79,7 +84,7 @@ void *handle_thread(void *arg)
 
         // cout << "off to connection\n";
         if (client_socket)
-            handle_connection(client_socket);
+            handle_connection(client_socket, request_index);
         // cout << "connection done\n";
     }
     return NULL;
@@ -121,7 +126,7 @@ int main(int argc, char *argv[])
     check(listen(sockfd, BACKLOG), "cant listen :/");
     ///////////////////////////////////////////////////////////////////////////
     // cout << "yo1" << '\n';
-
+    int i = 0;
     while (true)
     {
         // accept connection request from client
@@ -142,7 +147,7 @@ int main(int argc, char *argv[])
         *client_on_heap = client_socket;
 
         pthread_mutex_lock(&my_mutex);
-        q.push(client_on_heap);
+        q.push(make_pair(i++, client_on_heap));
         pthread_cond_signal(&my_condition);
         pthread_mutex_unlock(&my_mutex);
     }
