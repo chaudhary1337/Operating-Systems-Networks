@@ -40,7 +40,7 @@ string handle_fetch(char *args[MAX_ARGS])
     if (!dict[key].length())
         return "Key does not exist\n";
     else
-        return dict[key];
+        return dict[key] + "\n";
 }
 
 string handle_delete(char *args[MAX_ARGS])

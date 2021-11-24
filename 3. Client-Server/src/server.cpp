@@ -32,7 +32,7 @@ void *handle_connection(void *ptr_client_socket, int request_index)
     bzero(user_input, BUFFER_SIZE);
 
     // read data from client
-    check(read(client_socket, user_input, BUFFER_SIZE - 1), "cant read from sock ;-;");
+    check(read(client_socket, user_input, BUFFER_SIZE - 1), "cant read from sock ;-;\n");
     user_input[BUFFER_SIZE - 1] = '\0'; // null terminating it, just in case
 
     // test();
@@ -43,10 +43,10 @@ void *handle_connection(void *ptr_client_socket, int request_index)
     // printf("Here is the message: %s\n", buffer);
 
     // write ack to client
-    check(write(client_socket, c_response, strlen(c_response)), "y u dont listen client :/");
+    check(write(client_socket, c_response, strlen(c_response)), "y u dont listen client :/\n");
 
     pid_t tid = gettid();
-    cout << request_index << ":" << tid << ":" << c_response;
+    cout << request_index << ":" << tid << ":" << c_response << flush;
 
     // close connection
     close(client_socket);
