@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <pthread.h>
-#include <bits/stdc++.h>
+#include "all.h"
 
 using namespace std;
 
@@ -16,7 +8,8 @@ using namespace std;
 #define MAX_STRING_SIZE 256
 #define BACKLOG 5
 
-char dict[MAX_DICT_SIZE][MAX_STRING_SIZE];
+// char dict[MAX_DICT_SIZE][MAX_STRING_SIZE];
+vector<string> dict(MAX_DICT_SIZE, "");
 
 queue<int *> q;
 vector<pthread_t> thread_pool;
