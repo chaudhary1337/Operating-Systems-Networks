@@ -8,10 +8,10 @@ CC=g++
 CFLAGS=-I$(IDIR)
 
 
-_DEPS = all.h
+_DEPS = all.h commands.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = server.o
+_OBJ = server.o commands.o
 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 

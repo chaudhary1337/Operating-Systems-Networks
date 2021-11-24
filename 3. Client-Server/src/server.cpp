@@ -1,15 +1,11 @@
 #include "all.h"
+#include "commands.h"
 
 using namespace std;
 
-#define PORT 1337
-#define BUFFER_SIZE 256
-#define MAX_DICT_SIZE 100
-#define MAX_STRING_SIZE 256
-#define BACKLOG 5
-
 // char dict[MAX_DICT_SIZE][MAX_STRING_SIZE];
 vector<string> dict(MAX_DICT_SIZE, "");
+mutex my_dict_mutex[MAX_DICT_SIZE];
 
 queue<int *> q;
 vector<pthread_t> thread_pool;
@@ -31,19 +27,23 @@ void *handle_connection(void *ptr_client_socket)
     int client_socket = *((int *)ptr_client_socket);
 
     // steup buffer
-    char buffer[BUFFER_SIZE];
+    char user_input[BUFFER_SIZE];
     int bytes;
-    bzero(buffer, BUFFER_SIZE);
+    bzero(user_input, BUFFER_SIZE);
 
     // read data from client
-    check(read(client_socket, buffer, BUFFER_SIZE - 1), "cant read from sock ;-;");
-    buffer[BUFFER_SIZE - 1] = '\0'; // null terminating it, just in case
+    check(read(client_socket, user_input, BUFFER_SIZE - 1), "cant read from sock ;-;");
+    user_input[BUFFER_SIZE - 1] = '\0'; // null terminating it, just in case
 
-    // print data from client
-    printf("Here is the message: %s\n", buffer);
+    // test();
+    string response = handle_commands(user_input);
+    char *c_response = strdup(response.c_str());
+
+    // // print data from client
+    // printf("Here is the message: %s\n", buffer);
 
     // write ack to client
-    check(write(client_socket, "I got your message.\n", 20), "y u dont listen client :/");
+    check(write(client_socket, c_response, strlen(c_response)), "y u dont listen client :/");
 
     // close connection
     close(client_socket);

@@ -11,4 +11,16 @@
 #include <pthread.h>
 #include <bits/stdc++.h>
 
+#define PORT 1337
+#define BUFFER_SIZE 256
+#define MAX_DICT_SIZE 101
+#define MAX_STRING_SIZE 256
+#define BACKLOG 5
+#define MAX_RESPONSE_SIZE 256
+
+using namespace std;
+
+extern vector<string> dict;
+extern mutex my_dict_mutex[MAX_DICT_SIZE];
+
 #endif
