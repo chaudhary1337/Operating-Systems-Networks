@@ -18,12 +18,12 @@ string handle_insert(char *args[MAX_ARGS])
         return "Invalid key\n";
     string value = args[2];
 
-    while (!my_dict_mutex[key].try_lock())
-        ;
+    // while (!my_dict_mutex[key].try_lock())
+    //     ;
     if (dict[key].length())
         return "Key already exist\n";
     dict[key] = value;
-    my_dict_mutex[key].unlock();
+    // my_dict_mutex[key].unlock();
 
     return "Insertion Successful\n";
 }

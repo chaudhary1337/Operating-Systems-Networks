@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 #include <pthread.h>
 #include <bits/stdc++.h>
+#include <sys/types.h>
 
 #define PORT 1337
 #define BUFFER_SIZE 256

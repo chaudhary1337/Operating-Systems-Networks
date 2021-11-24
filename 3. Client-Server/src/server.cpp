@@ -45,6 +45,9 @@ void *handle_connection(void *ptr_client_socket)
     // write ack to client
     check(write(client_socket, c_response, strlen(c_response)), "y u dont listen client :/");
 
+    pid_t tid = gettid();
+    cout << tid << ":" << c_response << '\n';
+
     // close connection
     close(client_socket);
 
@@ -146,5 +149,6 @@ int main(int argc, char *argv[])
 
     // close server socket
     close(sockfd);
+
     return 0;
 }
