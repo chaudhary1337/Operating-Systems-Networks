@@ -18,6 +18,7 @@
 #define MAX_STRING_SIZE 256
 #define BACKLOG 5
 #define MAX_RESPONSE_SIZE 256
+#define MAX_REQUESTS 256
 
 using namespace std;
 

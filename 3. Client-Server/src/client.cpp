@@ -10,11 +10,10 @@ void check(int code, const char *message)
     return;
 }
 
-int main()
+void handle_connect(string input)
 {
     int sockfd;
     struct sockaddr_in server_addr;
-    string sbuff;
     char rbuff[BUFFER_SIZE];
 
     check((sockfd = socket(AF_INET, SOCK_STREAM, 0)), "cant create sock\n");
@@ -26,11 +25,40 @@ int main()
     server_addr.sin_port = htons(PORT);
 
     check(connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)), "cant connect to server\n");
-    getline(cin, sbuff);
-    send(sockfd, sbuff.c_str(), strlen(sbuff.c_str()), 0);
+    send(sockfd, input.c_str(), strlen(input.c_str()), 0);
     check(recv(sockfd, rbuff, BUFFER_SIZE, 0) - 1, "can't recevie\n");
     fputs(rbuff, stdout);
+    bzero((char *)&rbuff, sizeof(rbuff));
+
     close(sockfd);
+}
+
+int main()
+{
+    ///////////////////////////// HANDLING ALL THE INPUTS /////////////////////
+    string temp;
+    getline(cin, temp);
+    int m = stoi(temp);
+    int last_time = 0;
+    vector<vector<string>> inputs(MAX_REQUESTS);
+    for (int i = 0; i < m; i++)
+    {
+        string temp;
+        getline(cin, temp);
+        string time = temp.substr(0, temp.find(' '));
+        string remaining = temp.substr(temp.find(' ') + 1, temp.length() - 1);
+
+        inputs[stoi(time)].push_back(remaining);
+        last_time = max(last_time, stoi(time));
+    }
+    ///////////////////////////// HANDLING ALL THE INPUTS /////////////////////
+
+    for (int i = 1; i <= last_time; i++)
+    {
+        for (int j = 0; j < inputs[i].size(); j++)
+            handle_connect(inputs[i][j]);
+        sleep(1);
+    }
 
     return 0;
 }
