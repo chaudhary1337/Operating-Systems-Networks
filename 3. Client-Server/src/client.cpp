@@ -10,8 +10,10 @@ void check(int code, const char *message)
     return;
 }
 
-void handle_connect(string input)
+void *handle_connect(void *input_ptr)
 {
+    string input = *((string *)input_ptr);
+
     int sockfd;
     struct sockaddr_in server_addr;
     char rbuff[BUFFER_SIZE];
@@ -31,6 +33,8 @@ void handle_connect(string input)
     bzero((char *)&rbuff, sizeof(rbuff));
 
     close(sockfd);
+
+    return NULL;
 }
 
 int main()
@@ -53,10 +57,14 @@ int main()
     }
     ///////////////////////////// HANDLING ALL THE INPUTS /////////////////////
 
-    for (int i = 1; i <= last_time; i++)
+    for (int i = 0; i <= last_time; i++)
     {
         for (int j = 0; j < inputs[i].size(); j++)
-            handle_connect(inputs[i][j]);
+        {
+            // handle_connect(inputs[i][j]);
+            pthread_t thread;
+            pthread_create(&thread, NULL, handle_connect, &inputs[i][j]);
+        }
         sleep(1);
     }
 

@@ -78,7 +78,7 @@ string handle_update(char *args[MAX_ARGS])
     dict[key] = value;
     pthread_mutex_unlock(&my_dict_mutex[key]);
 
-    return "Updated value: " + value + "\n";
+    return value + "\n";
 }
 
 string handle_concat(char *args[MAX_ARGS])
@@ -101,12 +101,25 @@ string handle_concat(char *args[MAX_ARGS])
 
     pthread_mutex_lock(&my_dict_mutex[key1]);
     pthread_mutex_lock(&my_dict_mutex[key2]);
+    // pid_t tid = gettid();
+    // cout << "MESSING WITH CONCAT: " << tid << '\n';
     dict[key1] = temp1 + temp2;
     dict[key2] = temp2 + temp1;
     pthread_mutex_unlock(&my_dict_mutex[key2]);
     pthread_mutex_unlock(&my_dict_mutex[key1]);
 
-    return "Concat value: " + dict[key2] + "\n";
+    return dict[key2] + "\n";
+}
+
+string handle_clear()
+{
+    for (int i = 0; i < MAX_DICT_SIZE; i++)
+    {
+        pthread_mutex_lock(&my_dict_mutex[i]);
+        dict[i] = "";
+        pthread_mutex_unlock(&my_dict_mutex[i]);
+    }
+    return "ALL KEYS PURGED\n";
 }
 
 string handle_commands(char *user_input)
@@ -136,6 +149,7 @@ string handle_commands(char *user_input)
         response = handle_update(args);
     else if (!strncmp(args[0], "concat", 6))
         response = handle_concat(args);
-
+    else if (!strncmp(args[0], "CLEAR", 6))
+        response = handle_clear();
     return response;
 }

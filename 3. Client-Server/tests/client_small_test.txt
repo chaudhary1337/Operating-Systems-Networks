@@ -1,0 +1,7 @@
+6
+1 insert 1 hello 
+2 insert 1 hello 
+2 insert 2 yes 
+2 insert 3 no 
+3 concat 1 2 
+3 concat 1 3 
